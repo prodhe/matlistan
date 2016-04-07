@@ -117,12 +117,6 @@ function updateIngredients() {
 	while ($('#ingredientslist > li').length < 5) {
 		$('#ingredientslist').append($('<li>'));
 	}	
-
-/*
-	$('#ingredientslist').fadeTo(200, 0.7);
-	$('#ingredientslist').fadeTo(200, 1.0);
-*/
-
 }
 
 /* onload */
@@ -139,8 +133,4 @@ $(document).ready(function() {
 			loadList();
 		}
 	});
-
-	// stop the flickering for the first ingredients update
-	//$('#ingredientslist').fadeOut();
-
 });

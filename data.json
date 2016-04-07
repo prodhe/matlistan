@@ -1,0 +1,24 @@
+{
+    "dishes": [
+    {
+        "name": "Köttfärssås",
+        "ingredients": ["köttfärs", "tomatsås", "tomatpuré", "lök"]
+    },
+    {
+        "name": "Laxwok",
+        "ingredients": ["lax","frysta grönsaker"]
+    },
+    {
+        "name": "Köttpaj",
+        "ingredients": []
+    },
+    {
+        "name": "Ostpaj",
+        "ingredients": []
+    },
+    {
+        "name": "Thailändsk fiskgryta",
+        "ingredients": []
+    }
+    ]
+}

@@ -7,6 +7,7 @@
     <meta charset="UTF-8" />
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="./js/food.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="./css/style.css" />
     <title>Matlista</title>
@@ -16,37 +17,37 @@
     <header>
         <div class="group">
             <h1>Matlista</h1>
-            <!--
-            <nav>
-                <ul>
-                    <li><a href="./">Home</a></li>
-                    <li><a href="./">About</a></li>
-                    <li><a href="./">Contact</a></li>
-                </ul>
-            </nav>
-            //-->
         </div>
     </header> 
 
     <main>
-<div class="group">
-    <section>
-        <h2>Alla rätter</h2>
-        <p>This is my main content.</p>
-    </section>
-    <section>
-        <h2>Resultat</h2>
-        <p>A HTML5 skeleton piece of code.</p>
-    </section>
-</div>
-
-    </main>
-
-    <footer>
         <div class="group">
-            <p>Skapad av Petter</p> 
+            <section>
+                <h2>Alla rätter</h2>
+                <ul id="mainlist" class="list">
+                </ul>
+            </section>
+            <section>
+                <h2>Valda rätter</h2>
+                <ul id="userlist" class="list">
+                </ul>
+            </section>
+            <section>
+                <h2>Ingredienser</h2>
+                <ul id="ingredientslist">
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+                </ul>
+            </section>
         </div>
+    </main>
+<!--
+    <footer>
+		<p>Skapad av Petter</p> 
     </footer>
-
+//-->
 </body>
 </html>

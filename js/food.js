@@ -7,32 +7,14 @@ window.data = null;
 function sortAlpha(a, b) {
 	return a.toLowerCase() > b.toLowerCase() ? 1 : -1;
 }
-
-/* make items in userlist sortable/draggable
-   and update handler on change */
-$(function($) {
-	$('#userlist')
-		.sortable({
-			revert: true,
-			placeholder: "placeholder"
-		});
-
-	// need to bind event function after initialization for
-	// the outside trigger function to work properly...
-	$('#userlist').bind("sortupdate", function(e, ui) {
-		$('#userlist').draggable({
-			connectWith: "#mainlist",
-			remove: function(e, ui) {
-				ui.remove();
-			}
-		});
-		$('#userlist > li').dblclick(function() {
-			$(this).remove();
-			updateIngredients();
-		});
-		updateIngredients();
-	});
-});
+function addObjToList(obj) {
+	$(obj).clone().appendTo($('#userlist'));
+	$('#userlist').trigger("sortupdate");
+}
+function clearUserlist() {
+	$('#userlist').children().remove();
+	$('#userlist').trigger("sortupdate");
+}
 
 /* fill main list with items */
 function loadList() {
@@ -45,8 +27,7 @@ function loadList() {
 						 connectToSortable: "#userlist"
 					 })
 					 .dblclick(function() {
-						 $(this).clone().appendTo($('#userlist'));
-						 $('#userlist').trigger("sortupdate");
+					 	 addObjToList(this);
 					 })
 					 .append(item["name"])
 		).droppable({
@@ -113,15 +94,31 @@ function updateIngredients() {
 		$('#ingredientslist').append($('<li>').append(txt));
 	} 
 
-	// for visual purposes, make sure there's always 5 rows in the list
+	// for visual purposes, make sure there's always 5 rows
+	// in the list (or the same as in the HTML file)
 	while ($('#ingredientslist > li').length < 5) {
 		$('#ingredientslist').append($('<li>'));
 	}	
 }
 
+/* randomize the user list with n elements from main */
+function randomUserlist(n) {
+    // abort if not numeric
+    if(!($.isNumeric(n))) return false;
+
+    clearUserlist();
+    var rand = 0;
+    for (var i=0; i<n; i++) {
+        // get random number that is between 1 and length of mainlist
+        // and then add it to the list
+        rand = Math.floor((Math.random()*$('#mainlist > li').length) + 1);
+        addObjToList($('#mainlist > li:nth-child(' + rand + ')'));
+    }
+}
+
 /* onload */
 $(document).ready(function() {
-	/* load food data and add to main list */
+	// load food data and add to main list
 	$.ajax({
 		url: "./data.json",
 		success: function(file) {
@@ -133,4 +130,33 @@ $(document).ready(function() {
 			loadList();
 		}
 	});
+
+    // make items in userlist sortable/draggable
+	$('#userlist')
+		.sortable({
+			revert: true,
+			placeholder: "placeholder"
+		})
+		.draggable({
+			connectWith: "#mainlist",
+			remove: function(e, ui) {
+				ui.remove();
+			}
+		});
+
+	// need to bind update event function after initialization
+	// for the outside trigger function to work properly...
+	$('#userlist').bind("sortupdate", function(e, ui) {
+		$('#userlist > li').dblclick(function() {
+			$(this).remove();
+			updateIngredients();
+		});
+		updateIngredients();
+	});
+
+    // connect buttons
+    $('#btn_clear_userlist').click(clearUserlist);
+    $('#btn_random_userlist').click(function(e) {
+        randomUserlist($('#random_dishes').val());
+    });
 });

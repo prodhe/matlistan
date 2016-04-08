@@ -1,7 +1,7 @@
 /* food.js */
 
 /* global storage for loaded json data */
-window.data = null;
+window.data = [];
 
 /* helper functions */
 function sortAlpha(a, b) {
@@ -122,8 +122,12 @@ $(document).ready(function() {
 	$.ajax({
 		url: "./data.json",
 		success: function(file) {
-			//console.log("loaded JSON data");
-			window.data = file["dishes"];
+            var a = file["dishes"];
+            for (var i=0; i<a.length; i++) {
+                if ("name" in a[i] && "ingredients" in a[i]) {
+                    window.data.push(a[i]);
+                }
+            }
 			window.data.sort(function(a,b) {
 				return sortAlpha(a["name"],b["name"]);
 			});

@@ -13,3 +13,6 @@ Om du har Linux/Mac OS X kan du köra skriptet i terminal:
 > ./create-json-data.py < Matlista.txt > data.json
 
 Projektet är under utveckling. Se mer under [TODO.md](./TODO.md).
+
+Live demo:
+[https://vargklippan.se/matlistan/](https://vargklippan.se/matlistan/)

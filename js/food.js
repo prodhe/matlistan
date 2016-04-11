@@ -125,28 +125,34 @@ $(document).ready(function() {
             var a = file["dishes"];
             for (var i=0; i<a.length; i++) {
                 if ("name" in a[i] && "ingredients" in a[i]) {
+                    // clear out empty string ingredients
+                    a[i]["ingredients"] = a[i]["ingredients"].filter(function(el,i,a){
+                        return (el != "") ? 1 : 0;
+                    });
+                    // add to global storage
                     window.data.push(a[i]);
                 }
             }
+            // sort main list
 			window.data.sort(function(a,b) {
 				return sortAlpha(a["name"],b["name"]);
 			});
+            // load to HTML
 			loadList();
 		}
 	});
 
     // make items in userlist sortable/draggable
-	$('#userlist')
-		.sortable({
-			revert: true,
-			placeholder: "placeholder"
-		})
-		.draggable({
-			connectWith: "#mainlist",
-			remove: function(e, ui) {
-				ui.remove();
-			}
-		});
+	$('#userlist').sortable({
+        revert: true,
+        placeholder: "placeholder"
+    });
+	$('#userlist > li').draggable({
+        connectWith: "#mainlist",
+        remove: function(e, ui) {
+            ui.remove();
+        }
+    });
 
 	// need to bind update event function after initialization
 	// for the outside trigger function to work properly...

@@ -107,12 +107,33 @@ function randomUserlist(n) {
     if(!($.isNumeric(n))) return false;
 
     clearUserlist();
+    var mainlength = $('#mainlist > li').length;
     var rand = 0;
+    var memory = [];
     for (var i=0; i<n; i++) {
         // get random number that is between 1 and length of mainlist
-        // and then add it to the list
-        rand = Math.floor((Math.random()*$('#mainlist > li').length) + 1);
+        rand = Math.floor((Math.random()*mainlength) + 1);
+
+        // if it's already in the list, add 1 (or circle around to beginning)
+        // and check again
+        while ($.inArray(rand, memory) != -1) {
+            // if we want more random items than length of mainlist,
+            // clear the memory if it's already full
+            if (memory.length == mainlength) {
+                memory = [];
+            }
+            if (rand != mainlength) {
+                rand = rand + 1;
+            }
+            else {
+                rand = 1;
+            }
+        }
+
+        // finally, remember the item number for next run and
+        // add it to the visual list
         addObjToList($('#mainlist > li:nth-child(' + rand + ')'));
+        memory.push(rand);
     }
 }
 

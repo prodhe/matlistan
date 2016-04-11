@@ -13,44 +13,45 @@
     <title>Matlistan</title>
 </head>
 <body>
-
     <header>
-        <div class="group">
-            <h1>Matlistan</h1>
-        </div>
+        <h1>Matlistan</h1>
     </header> 
-
     <main>
-        <div class="group">
-            <section>
-                <h2>Alla rätter</h2>
-                <ul id="mainlist" class="list">
-                </ul>
-            </section>
-            <section>
-                <h2>Valda rätter</h2>
-				<p>
-					<input type="number" min="1" max="99" value="7" id="random_dishes" />
-                    <button id="btn_random_userlist">Slumpa</button>
-                    <button id="btn_clear_userlist">Nollställ</button>
-				</p>
-                <ul id="userlist" class="list">
-                </ul>
-            </section>
-            <section>
-                <h2>Ingredienser</h2>
-                <ul id="ingredientslist">
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-                </ul>
-            </section>
-        </div>
+        <section>
+            <h2>Alla rätter</h2>
+            <p class="section-options">
+                <button id="btn_load_list">Läs in egen matlista</button>
+            </p>
+            <ul id="mainlist" class="list">
+            </ul>
+        </section>
+        <section>
+            <h2>Valda rätter</h2>
+            <p class="section-options">
+                <input type="number" min="1" max="99" value="7" id="random_dishes" />
+                <button id="btn_random_userlist">Slumpa</button>
+                <button id="btn_clear_userlist">Nollställ</button>
+            </p>
+            <ul id="userlist" class="list">
+            </ul>
+        </section>
+        <section>
+            <h2>Ingredienser</h2>
+            <p class="section-options">
+                <button id="btn_edit_ingredients">Editera/Kopiera</button>
+            </p>
+            <ul id="ingredientslist">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </section>
     </main>
     <footer>
-		<p>Skapad av Petter</p> 
+        <p>Matlistan publiceras som öppen källkod - projektet finns på
+        <a href="http://github.com/prodhe/foodlist">GitHub</a></p> 
     </footer>
 </body>
 </html>

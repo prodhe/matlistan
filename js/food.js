@@ -169,4 +169,10 @@ $(document).ready(function() {
     $('#btn_random_userlist').click(function(e) {
         randomUserlist($('#random_dishes').val());
     });
+    $('#btn_load_list').click(function(e) {
+        alert("Ej implementerad.");
+    });
+    $('#btn_edit_ingredients').click(function(e) {
+        alert("Ej implementerad.");
+    });
 });

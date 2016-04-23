@@ -7,6 +7,8 @@
     <meta charset="UTF-8" />
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="./js/loadext.js"></script>
+    <script src="./js/savelist.js"></script>
     <script src="./js/food.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="./css/style.css" />
@@ -20,7 +22,13 @@
         <section>
             <h2>Alla rätter</h2>
             <p class="section-options">
-                <button id="btn_load_list">Läs in egen matlista</button>
+                <!--
+                    <button id="btn_load_list">Läs in egen matlista</button>
+                //-->
+                <label class="custom-file-input">
+                    <input type="file" id="file_load_list" accept=".txt" />
+                    <span id="label_file_input">Ladda upp egen matlista</span>
+                </label>
             </p>
             <ul id="mainlist" class="list">
             </ul>
@@ -39,6 +47,7 @@
             <h2>Ingredienser</h2>
             <p class="section-options">
                 <button id="btn_edit_ingredients">Editera/Kopiera</button>
+                <button id="btn_create_store_list">Skapa inköpslista</button>
             </p>
             <ul id="ingredientslist">
                 <li></li>

@@ -48,20 +48,27 @@ main section h2 {
     margin-bottom: 1rem;
 }
 .section-options button,
-.section-options input {
+.section-options input,
+.section-options label.custom-file-input {
     background-color: #1e3e3e;
     border: 1px solid #1e3e3e;
     border-radius: 3px;
     color: #efefef;
     font-size: 0.8rem;
+    padding: 0.1rem 0.3rem 0.1rem 0.3rem;
 }
 .section-options button:hover,
-.section-options input:hover {
+.section-options input:hover,
+.section-options label.custom-file-input:hover {
     border-color: #daa520;
 }
 .section-options button:active,
-.section-options input:active {
+.section-options input:active,
+.section-options label.custom-file-input:active {
     border: 1px solid #b88300;
+}
+input[type="file"] {
+    display: none;
 }
 
 /* lists */
@@ -108,6 +115,11 @@ ul#userlist {
 }
 #ingredientslist li:last-child {
 	border-bottom: 0;
+}
+
+/* jquery ui popup */
+#popup {
+    font-size: 0.9rem;
 }
 
 /* footer */

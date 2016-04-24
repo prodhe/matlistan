@@ -26,6 +26,7 @@ if ($listid === 0) die("Not found.");
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript">
     <!--
@@ -38,7 +39,15 @@ if ($listid === 0) die("Not found.");
             });
             data["ingredients"].forEach(function(ingredient) {
                 console.log(ingredient);
-                $('#ingredients').append($('<li>').append(ingredient));
+                $('#ingredients')
+                    .append(
+                        $('<li>')
+                        .click(function() {
+                            $(this)
+                                .css("text-decoration","line-through")
+                                .css("font-weight","bold");
+                        }).append(ingredient)
+                    );
             });
         });
     //-->

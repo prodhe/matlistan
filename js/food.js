@@ -190,10 +190,14 @@ $(document).ready(function() {
     $('#btn_random_userlist').click(function(e) {
         randomUserlist($('#random_dishes').val());
     });
-    $('#btn_load_list').click(function(e) {
-        alert("Ej implementerad.");
+    $('#file_load_list').change(function(e) {
+        $('#label_file_input').text(this.files[0]['name']);
     });
     $('#btn_edit_ingredients').click(function(e) {
         alert("Ej implementerad.");
+    });
+    $('#btn_create_store_list').click(function(e) {
+        //alert("Ej implementerad.");
+        save_ingredients();
     });
 });

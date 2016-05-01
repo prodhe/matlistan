@@ -16,7 +16,7 @@ foreach(array_keys($_GET) as $key) {
 }
 
 // exit if not found
-if ($listid === 0) die("Not found.");
+//if ($listid === 0) die("Not found.");
 
 ?>
 <!doctype html>
@@ -54,13 +54,25 @@ if ($listid === 0) die("Not found.");
         });
     //-->
     </script>
+<?php } else { ?>
+    <script type="text/javascript">
+    <!--
+        function load() {
+            var lid = $("#lid").val();
+            if ($.isNumeric(lid)) {
+                location.href = "./?" + lid;
+            }
+        }
+    //-->
+    </script>
 <?php } ?>
     <title>Store</title>
 </head>
 <body>
-    <header>
-        <h1><?=$listid?></h1>
-    </header> 
+<?php if ($listid === 0) { ?>
+    <input type="text" size="6" id="lid" /> <br />
+    <button id="send" onclick="load();">Ladda</button>
+<?php } else { ?>
     <main>
         <section>
             <ul id="ingredients"></ul>
@@ -71,5 +83,6 @@ if ($listid === 0) die("Not found.");
     </main>
     <footer>
     </footer>
+<?php } ?>
 </body>
 </html>

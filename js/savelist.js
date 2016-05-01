@@ -14,7 +14,7 @@ function save_ingredients() {
 	});
 	$('#ingredientslist > li').each(function(i, li) {
         var text = $(li).text();
-        if (text !== "") {
+        if (text !== "" && !$(li).hasClass("item-ignore")) {
             store["ingredients"].push(text);
         }
 	});

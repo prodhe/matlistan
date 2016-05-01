@@ -88,10 +88,18 @@ function updateIngredients() {
 	});
 
 	// add ingredients to the visual HTML list
+    // and add click function for ignoring item before saving
 	for (i=0; i<ingredients.length; i++) {
 		var ing_name = ingredients[i];
 		var txt = (count[ing_name] > 1) ? ing_name + " x" + count[ing_name] : ing_name;
-		$('#ingredientslist').append($('<li>').append(txt));
+		$('#ingredientslist').append($('<li>').click(function() {
+            var a = "item-ignore";
+            if ($(this).hasClass(a)) {
+                $(this).removeClass(a);
+            } else {
+                $(this).addClass(a);
+            }
+        }).append(txt));
 	} 
 
 	// for visual purposes, make sure there's always 5 rows

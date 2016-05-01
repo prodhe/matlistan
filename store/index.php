@@ -27,32 +27,34 @@ if ($listid === 0) die("Not found.");
     <![endif]-->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="../css/store.css" />
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<?php if ($listid !== 0) { ?>
     <script type="text/javascript">
     <!--
         var data = JSON.parse('<?=$res?>');
-        console.log(data);
         $(document).ready(function() {
             data["dishes"].forEach(function(dish) {
-                console.log(dish);
                 $('#dishes').append($('<li>').append(dish));
             });
             data["ingredients"].forEach(function(ingredient) {
-                console.log(ingredient);
                 $('#ingredients')
                     .append(
                         $('<li>')
                         .click(function() {
-                            $(this)
-                                .css("text-decoration","line-through")
-                                .css("font-weight","bold");
+                            var a = "item-ignore";
+                            if ($(this).hasClass(a)) {
+                                $(this).removeClass(a);
+                            } else {
+                                $(this).addClass(a);
+                            }
                         }).append(ingredient)
                     );
             });
         });
     //-->
     </script>
-    <link rel="stylesheet" href="../css/store.css" />
+<?php } ?>
     <title>Store</title>
 </head>
 <body>
@@ -61,12 +63,10 @@ if ($listid === 0) die("Not found.");
     </header> 
     <main>
         <section>
-            <ul id="dishes">
-            </ul>
+            <ul id="ingredients"></ul>
         </section>
         <section>
-            <ul id="ingredients">
-            </ul>
+            <ul id="dishes"></ul>
         </section>
     </main>
     <footer>

@@ -112,9 +112,14 @@ ul#userlist {
 	border-bottom: 1px dotted #ccc;	
 	padding: 0.3rem;
 	min-height: 1.1rem;
+    cursor: pointer;
 }
 #ingredientslist li:last-child {
 	border-bottom: 0;
+}
+.item-ignore {
+    text-decoration: line-through;
+    font-weight: bold;
 }
 
 /* jquery ui popup */

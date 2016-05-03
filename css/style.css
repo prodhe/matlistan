@@ -131,9 +131,11 @@ ul#userlist {
 footer {
 	clear: both;
     padding: 1rem 0 1rem 0;
+/*
     background-color: #1e3e3e;
     border-top: 1px solid #daa520;
     border-radius: 50px 0 0 0;
+    */
     color: #fff;
     text-align: center;
 }
@@ -142,6 +144,10 @@ footer p {
 	padding: 0;
 	text-align: center;	
 	font-style: italic;
+}
+footer span {
+    border-top: 1px solid #daa520;
+    padding-top: 1rem;
 }
 footer a {
     color: #fff;

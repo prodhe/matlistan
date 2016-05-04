@@ -1,0 +1,5 @@
+/* style-bs.css - for bootstrap version */
+
+input[type="file"] {
+    display: none;
+}

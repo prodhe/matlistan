@@ -10,59 +10,69 @@
     <script src="./js/loadext.js"></script>
     <script src="./js/savelist.js"></script>
     <script src="./js/food.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="./css/style.css" />
+    <!--<link rel="stylesheet" href="./css/style-bs.css" />//-->
     <title>Matlistan</title>
 </head>
 <body>
-    <header>
-        <h1>Matlistan</h1>
-    </header> 
-    <main>
-        <section>
-            <h2>Alla rätter</h2>
-            <p class="section-options">
-                <!--
-                    <button id="btn_load_list">Läs in egen matlista</button>
-                //-->
-                <label class="custom-file-input">
+    <div class="container center">
+        <header class="row">
+            <h1 class="text-center">Matlistan <span class="label label-primary">2.0</span></h1>
+        </header> 
+        <main class="row">
+            <section class="col-md-4">
+                <h2>Alla rätter</h2>
+                <div class="form-group">
+                    <label for="file_load_list">Ladda upp egen matlista</label>
                     <input type="file" id="file_load_list" accept=".txt" />
-                    <span id="label_file_input">Ladda upp egen matlista</span>
-                </label>
+                        <!--<span id="label_file_input">Ladda upp egen matlista</span>//-->
+                </div>
+                <ul id="mainlist" class="list-unstyled list">
+                </ul>
+            </section>
+            <section class="col-md-4">
+                <h2>Valda rätter</h2>
+                <div class="form-group form-inline">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-cutlery"></span>
+                        </div>
+                        <input type="number" min="1" max="99" value="7" size="3" id="random_dishes" class="form-control" />
+                    </div>
+                    <button id="btn_random_userlist" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-random"></span>
+                        <span class="sr-only">Slumpa</span>
+                    </button>
+                    <button id="btn_clear_userlist" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-erase"></span>
+                        <span class="sr-only">Nollställ</span>
+                    </button>
+                </div>
+                <ul id="userlist" class="list-unstyled list">
+                </ul>
+            </section>
+            <section class="col-md-4">
+                <h2>Ingredienser</h2>
+                <p class="section-options">
+                    <button id="btn_create_store_list" class="btn btn-default">Spara inköpslista</button>
+                </p>
+                <ul id="ingredientslist" class="list-unstyled">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </section>
+        </main>
+        <footer class="row">
+            <p class="text-center text-uppercase">
+                <small>Matlistan publiceras som öppen källkod - projektet finns på
+                <a href="http://github.com/prodhe/foodlist">GitHub</a></small>
             </p>
-            <ul id="mainlist" class="list">
-            </ul>
-        </section>
-        <section>
-            <h2>Valda rätter</h2>
-            <p class="section-options">
-                <input type="number" min="1" max="99" value="7" id="random_dishes" />
-                <button id="btn_random_userlist">Slumpa</button>
-                <button id="btn_clear_userlist">Nollställ</button>
-            </p>
-            <ul id="userlist" class="list">
-            </ul>
-        </section>
-        <section>
-            <h2>Ingredienser</h2>
-            <p class="section-options">
-                <button id="btn_create_store_list">Spara inköpslista</button>
-            </p>
-            <ul id="ingredientslist">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </section>
-        <div id="popup"></div>
-    </main>
-    <footer>
-        <p>
-            <span>Matlistan publiceras som öppen källkod - projektet finns på
-            <a href="http://github.com/prodhe/foodlist">GitHub</a></span>
-        </p>
-    </footer>
+        </footer>
+    </div>
+    <div id="popup"></div>
 </body>
 </html>

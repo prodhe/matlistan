@@ -1,5 +1,17 @@
 /* style-bs.css - for bootstrap version */
 
-input[type="file"] {
-    display: none;
+h2 {
+    text-align: center;
+}
+
+.list-group-item:hover {
+    background-color: #efefef;
+}
+.list-group-item.ui-draggable-dragging {
+    width: 90%;
+    background-color: #efefef;
+}
+
+#userlist {
+    min-height: 10em;
 }

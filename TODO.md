@@ -2,6 +2,7 @@
 
 - Läs in en egen matlista.txt direkt i webbläsaren
 - Kategorier och slumpning därefter
+- Ny design med bootstrap
 
 ## Historik
 

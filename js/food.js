@@ -20,29 +20,18 @@ function clearUserlist() {
 function loadList() {
 	window.data.forEach(function(item) {
 		$('#mainlist').append(
-			$('<li>').addClass("item")
+			$('<li>').addClass("list-group-item")
 					 .draggable({
-						 cursor: 'move',
 						 helper: 'clone',
-						 connectToSortable: "#userlist"
+                         addClasses: false,
+                         stack: ".list-group-item"
+						 //connectToSortable: "#userlist"
 					 })
 					 .dblclick(function() {
 					 	 addObjToList(this);
 					 })
 					 .append(item["name"])
-		).droppable({
-			accept: "#userlist > li",
-			over: function(e, ui) {
-				$(this).fadeTo(200, 0.3);
-			},
-			out: function(e, ui) {
-				$(this).fadeTo(200, 1.0);
-			},
-			drop: function(e, ui) {
-				ui.draggable.remove();
-				$(this).fadeTo(200, 1.0);
-			}
-		});
+		);
 	});
 };
 
@@ -171,18 +160,40 @@ $(document).ready(function() {
 		}
 	});
 
-    // make items in userlist sortable/draggable
+    // make items in userlist sortable
 	$('#userlist').sortable({
-        revert: true,
-        placeholder: "placeholder"
-    });
-	$('#userlist > li').draggable({
-        connectWith: "#mainlist",
-        remove: function(e, ui) {
-            ui.remove();
+        revert: 100,
+        forcePlaceholderSize: true
+    }).droppable({
+        accept: "#mainlist > li",
+        over: function(e, ui) {
+            $(this).fadeTo(200, 0.3);
+        },
+        out: function(e, ui) {
+            $(this).fadeTo(200, 1.0);
+        },
+        drop: function(e, ui) {
+            addObjToList(ui.draggable);
+            ui.helper.remove();
+            $(this).fadeTo(200, 1.0);
         }
-    });
+    }).disableSelection();
 
+    // make the mainlist a valid drop target
+    // for dragged items in userlist
+	$('#mainlist').droppable({
+			accept: "#userlist > li",
+			over: function(e, ui) {
+				$(this).fadeTo(200, 0.3);
+			},
+			out: function(e, ui) {
+				$(this).fadeTo(200, 1.0);
+			},
+			drop: function(e, ui) {
+				ui.draggable.remove();
+				$(this).fadeTo(200, 1.0);
+			}
+    }).disableSelection();
 	// need to bind update event function after initialization
 	// for the outside trigger function to work properly...
 	$('#userlist').bind("sortupdate", function(e, ui) {

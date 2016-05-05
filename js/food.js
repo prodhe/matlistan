@@ -7,6 +7,11 @@ window.data = [];
 function sortAlpha(a, b) {
 	return a.toLowerCase() > b.toLowerCase() ? 1 : -1;
 }
+function safe2html(str) {
+    str = str.replace(/</g,"&lt;");
+    str = str.replace(/>/g,"&gt;");
+    return str;
+}
 function addObjToList(obj) {
 	$(obj).clone().appendTo($('#userlist'));
 	$('#userlist').trigger("sortupdate");
@@ -17,8 +22,11 @@ function clearUserlist() {
 }
 
 /* fill main list with items */
-function loadList() {
-	window.data.forEach(function(item) {
+function loadList(obj) {
+    $('#mainlist').children().remove();
+    var data = obj["dishes"];
+    window.data = data;
+	data.forEach(function(item) {
 		$('#mainlist').append(
 			$('<li>').addClass("list-group-item")
 					 .draggable({
@@ -88,7 +96,7 @@ function updateIngredients() {
             } else {
                 $(this).addClass(a);
             }
-        }).append(txt));
+        }).append(safe2html(txt)));
 	} 
 
 	// for visual purposes, make sure there's always 5 rows
@@ -137,7 +145,7 @@ function randomUserlist(n) {
 /* onload */
 $(document).ready(function() {
 	// load food data and add to main list
-	$.ajax({
+	/*$.ajax({
 		url: "./data.json",
 		success: function(file) {
             var a = file["dishes"];
@@ -156,9 +164,9 @@ $(document).ready(function() {
 				return sortAlpha(a["name"],b["name"]);
 			});
             // load to HTML
-			loadList();
+			loadList({"dishes":window.data});
 		}
-	});
+	});*/
 
     // make items in userlist sortable
 	$('#userlist').sortable({
@@ -205,19 +213,15 @@ $(document).ready(function() {
 	});
 
     // connect buttons
-    $('#btn_clear_userlist').click(clearUserlist);
+    $('#file_load_list').change(function(e) {
+        loadExternalList(this);
+    });
     $('#btn_random_userlist').click(function(e) {
         randomUserlist($('#random_dishes').val());
     });
-    $('#file_load_list').change(function(e) {
-        $('#label_file_input').text(this.files[0]['name']);
-    });
-    $('#btn_edit_ingredients').click(function(e) {
-        alert("Ej implementerad.");
-    });
+    $('#btn_clear_userlist').click(clearUserlist);
     $('#btn_create_store_list').click(function(e) {
-        //alert("Ej implementerad.");
-        save_ingredients();
+        saveIngredients(); //savelist.js
     });
 
     // activate bootstraps tooltip

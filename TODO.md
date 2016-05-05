@@ -1,10 +1,10 @@
 # Todo
 
-- Läs in en egen matlista.txt direkt i webbläsaren
 - Kategorier och slumpning därefter
 
 ## Historik
 
+- Läs in en egen matlista.txt direkt i webbläsaren
 - Ny design med bootstrap
 - Editera ingredienslistan med klick för att ignorera dessa
 innan man sparar

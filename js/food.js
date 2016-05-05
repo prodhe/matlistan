@@ -219,4 +219,7 @@ $(document).ready(function() {
         //alert("Ej implementerad.");
         save_ingredients();
     });
+
+    // activate bootstraps tooltip
+    $('[data-toggle="tooltip"]').tooltip();
 });

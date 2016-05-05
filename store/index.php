@@ -15,8 +15,9 @@ foreach(array_keys($_GET) as $key) {
     }
 }
 
-// exit if not found
-//if ($listid === 0) die("Not found.");
+// check for post if not found in URL
+if ($listid === 0) {
+}
 
 ?>
 <!doctype html>
@@ -26,63 +27,75 @@ foreach(array_keys($_GET) as $key) {
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="initial-scale=1" />
+    <title>Store</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/store.css" />
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-<?php if ($listid !== 0) { ?>
-    <script type="text/javascript">
-    <!--
-        var data = JSON.parse('<?=$res?>');
-        $(document).ready(function() {
-            data["dishes"].forEach(function(dish) {
-                $('#dishes').append($('<li>').append(dish));
-            });
-            data["ingredients"].forEach(function(ingredient) {
-                $('#ingredients')
-                    .append(
-                        $('<li>')
-                        .click(function() {
-                            var a = "item-ignore";
-                            if ($(this).hasClass(a)) {
-                                $(this).removeClass(a);
-                            } else {
-                                $(this).addClass(a);
-                            }
-                        }).append(ingredient)
-                    );
-            });
-        });
-    //-->
-    </script>
-<?php } else { ?>
-    <script type="text/javascript">
-    <!--
-        function load() {
-            var lid = $("#lid").val();
-            if ($.isNumeric(lid)) {
-                location.href = "./?" + lid;
-            }
-        }
-    //-->
-    </script>
-<?php } ?>
-    <title>Store</title>
 </head>
 <body>
 <?php if ($listid === 0) { ?>
-    <input type="text" size="6" id="lid" /> <br />
-    <button id="send" onclick="load();">Ladda</button>
+<div class="container-fluid">
+    <div class="row-fluid text-center">
+        <div class="col-xs-8 col-xs-offset-2">
+        <form action="./" method="get" class="form-inline">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                        <label for="lid" class="sr-only">ID:</label>
+                    </div>
+                    <input type="text" size="4" id="lid" class="form-control input-lg" placeholder="0" />
+                    <div class="input-group-btn">
+                        <button type="submit" id="send" class="btn btn-primary btn-lg">
+                            <span class="glyphicon glyphicon-log-in"></span>
+                            <span class="sr-only">Ladda</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$('form').submit(function() {
+        var lid = $("#lid").val();
+        if ($.isNumeric(lid)) {
+            location.href = "./?" + lid;
+        }
+        return false;
+});
+</script>
 <?php } else { ?>
-    <main>
-        <section>
-            <ul id="ingredients"></ul>
-        </section>
-        <section>
-            <ul id="dishes"></ul>
-        </section>
-    </main>
-    <footer>
-    </footer>
+<div id="header" class="btn btn-block btn-lg btn-primary">
+    <span class="glyphicon glyphicon-shopping-cart"></span>
+    <?=$listid?>
+</div>
+<ul id="ingredients" class="list-group"></ul>
+<div class="well">
+    <ul id="dishes" class="list-unstyled"></ul>
+</div>
+<script type="text/javascript">
+    var data = JSON.parse('<?=$res?>');
+    $(document).ready(function() {
+        data["dishes"].forEach(function(dish) {
+            //$('#dishes').append($('<li>').addClass("list-group-item").append(dish));
+            $('#dishes').append($('<li>').append(dish));
+        });
+        data["ingredients"].forEach(function(ingredient) {
+            $('#ingredients')
+                .append(
+                    $('<li>')
+                    .addClass("list-group-item")
+                    .click(function() {
+                        $(this).toggleClass("item-ignore");
+                        $(this).toggleClass("text-muted");
+                    }).append(ingredient)
+                );
+        });
+    });
+</script>
 <?php } ?>
 </body>
 </html>

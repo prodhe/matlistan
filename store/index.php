@@ -32,6 +32,7 @@ if ($listid === 0) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/store.css" />
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="../js/helpers.js"></script>
 </head>
 <body>
 <?php if ($listid === 0) { ?>
@@ -76,12 +77,16 @@ $('form').submit(function() {
 <div class="well">
     <ul id="dishes" class="list-unstyled"></ul>
 </div>
+<?php
+    // pre-parse for safer JSON parsing
+    $res = str_replace("<","\\u003c",addslashes($res));
+?>
 <script type="text/javascript">
     var data = JSON.parse('<?=$res?>');
     $(document).ready(function() {
         data["dishes"].forEach(function(dish) {
             //$('#dishes').append($('<li>').addClass("list-group-item").append(dish));
-            $('#dishes').append($('<li>').append(dish));
+            $('#dishes').append($('<li>').append(safe2html(dish)));
         });
         data["ingredients"].forEach(function(ingredient) {
             $('#ingredients')
@@ -91,7 +96,7 @@ $('form').submit(function() {
                     .click(function() {
                         $(this).toggleClass("item-ignore");
                         $(this).toggleClass("text-muted");
-                    }).append(ingredient)
+                    }).append(safe2html(ingredient))
                 );
         });
     });

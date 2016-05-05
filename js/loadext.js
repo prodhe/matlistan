@@ -17,21 +17,27 @@ function loadExternalList(obj) {
     fr.onload = function() {
         // parse the data into a JSON object
         var json_list = parseList(fr.result);
-        // send the object back to and load in HTML
-        loadList(json_list);
+        if (json_list !== false) {
+            // load in HTML
+            loadList(json_list);
+            // change visual html label to filename
+            $('#label_file_input').text(file['name']);
+        } else {
+            alert("ERROR: Could not find any valid rows in file.");
+        }
     };
     fr.readAsText(file);
-
-    // change visual html label to filename
-    $('#label_file_input').text(file['name']);
-
 }
 
 function parseList(str) {
     //var regexp = /^(.*):(.*)$/;
     // get only rows with a correct format
     var regexp = /(.*)\s*:\s*(.*)/g;
-    var rows = str.match(regexp); //array
+    var rows;
+    rows = str.match(regexp); //array
+
+    // if no rows had correct format, abort
+    if (rows === null) return false;
 
     var dishes = [];
     // loop, extract elements

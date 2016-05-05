@@ -4,6 +4,10 @@ h2 {
     text-align: center;
 }
 
+footer {
+    background-color: #efefef;
+}
+
 .list-group-item:hover {
     background-color: #efefef;
 }
@@ -14,4 +18,9 @@ h2 {
 
 #userlist {
     min-height: 10em;
+}
+
+.item-ignore {
+    text-decoration: line-through;
+    font-weight: bold;
 }

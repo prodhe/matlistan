@@ -1,5 +1,9 @@
 # Todo
 
+- Tydliga "boxar" för drag-and-drop
+- Hjälpsida/popup som visar importfilsformatet
+- Snyggare popup vid delning av ingredienslista
+- Store: visa not found om listan inte finns
 - Kategorier och slumpning därefter
 
 ## Historik

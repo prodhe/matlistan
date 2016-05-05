@@ -3,7 +3,7 @@
 // URL base for showing a correct link
 var base_url = "https://vargklippan.se/matlistan/store/";
 
-function save_ingredients() {
+function saveIngredients() {
     // get chosen dishes and ingredients
     var store = {dishes: [], ingredients: []};
 	$('#userlist > li').each(function(i, li) {

@@ -38,7 +38,7 @@ function loadList(obj) {
 					 .dblclick(function() {
 					 	 addObjToList(this);
 					 })
-					 .append(item["name"])
+					 .append(safe2html(item["name"]))
 		);
 	});
 };

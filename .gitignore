@@ -1,1 +1,2 @@
-
+# do not store sqlite database
+store.sqlite

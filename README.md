@@ -2,17 +2,22 @@
 
 Slumpa måltider för valt antal dagar och få en sammanställd inköpslista.
 
-Projektet är skrivet i Javascript/jQuery och använder sig av en statisk
-"matdatabas" i JSON-format, vilken man får uppdatera manuellt. Hur denna fil
-genereras är upp till användaren själv. I nuläget finns det ett medföljande
-python-skript som omvandlar "Matlistan.txt"-formatet till för projektet rätt
-JSON-syntax.
+- Skapa en matlista ([se exempel][matlista])
+- Ladda upp textfilen i webbläsaren
+- Välj önskade måltider
+    - Dubbelklicka
+    - Klicka-och-dra
+    - Använd slumpfunktionen
+- En sammanställd ingredienslista skapas automagiskt, vilken du sen kan
+spara/dela för att ta med dig till affären
+    - Använd direktlänken som visas när listan är sparad, eller surfa in
+    till [Store][store] och skriv in ID-numret på din tillfälliga lista
 
-Om du har Linux/Mac OS X kan du köra skriptet i terminal:
-
-> ./create-json-data.py < Matlista.txt > data.json
-
-Projektet är under utveckling. Se mer under [TODO.md](./TODO.md).
+Projektet är under utveckling. Se mer under [TODO](./TODO.md).
 
 Live demo:
-[https://vargklippan.se/matlistan/](https://vargklippan.se/matlistan/)
+[https://vargklippan.se/matlistan/][demo]
+
+[demo]: https://vargklippan.se/matlistan/
+[matlista]: https://vargklippan.se/matlistan/Matlista.txt
+[store]: https://vargklippan.se/matlistan/store/

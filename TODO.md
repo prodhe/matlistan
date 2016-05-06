@@ -1,5 +1,6 @@
 # Todo
 
+- Snygg cross-browser-lösning för filuppladdning-UI
 - Tydliga "boxar" för drag-and-drop
 - Hjälpsida/popup som visar importfilsformatet
 - Snyggare popup vid delning av ingredienslista

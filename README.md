@@ -13,7 +13,7 @@ spara/dela för att ta med dig till affären
     - Använd direktlänken som visas när listan är sparad, eller surfa in
     till [Store][store] och skriv in ID-numret på din tillfälliga lista
 
-Projektet är under utveckling. Se mer under [TODO.md](./TODO.md).
+Projektet är under utveckling. Se mer under [TODO](./TODO.md).
 
 Live demo:
 [https://vargklippan.se/matlistan/][demo]

@@ -6,6 +6,7 @@
 - Snyggare popup vid delning av ingredienslista
 - Store: visa not found om listan inte finns
 - Kategorier och slumpning därefter
+- Sammanställd skriv ut-sida
 
 ## Historik
 

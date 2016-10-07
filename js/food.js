@@ -23,7 +23,8 @@ function loadList(obj) {
                 .dblclick(function () {
                     addObjToList(this);
                 })
-                .append(safe2html(item.name))
+                .append('<b class="category">'+safe2html(item.category)+'</b>'+' '+
+                        '<span class="name">'+safe2html(item.name)+'</span>')
             );
     });
 }
@@ -36,7 +37,7 @@ function updateIngredients() {
     // get the names for current selected
     var dishes = [];
     $('#userlist > li').each(function (i, li) {
-        dishes.push($(li).text());
+        dishes.push($(li).children('.name').text());
     });
 
     // find and add ingredients for current selected
@@ -214,6 +215,9 @@ $(document).ready(function () {
     $('#btn_clear_userlist').click(clearUserlist);
     $('#btn_create_store_list').click(function (e) {
         saveIngredients(); //savelist.js
+    });
+    $('#btn_print_list').click(function (e) {
+        printList(); //printlist.js
     });
 
     // activate bootstraps tooltip

@@ -30,9 +30,8 @@ function loadExternalList(obj) {
 }
 
 function parseList(str) {
-    //var regexp = /^(.*):(.*)$/;
     // get only rows with a correct format
-    var regexp = /(.*)\s*:\s*(.*)/g;
+    var regexp = /(.*)\|(.*)\s*:\s*(.*)/g;
     var rows;
     rows = str.match(regexp); //array
 
@@ -43,8 +42,8 @@ function parseList(str) {
     // loop, extract elements
     rows.forEach(function(row) {
         regexp.lastIndex = 0; // to be able to reuse the same regexp in the loop
-        var rowdata = regexp.exec(row); //1:name, 2:comma-separated ingredients
-        dishes.push({"name":rowdata[1],"ingredients":rowdata[2].split(/\s*,\s*/)});
+        var rowdata = regexp.exec(row); //1:cat, 2:name, 3:comma-separated ingredients
+        dishes.push({"name":rowdata[2].trim(),"category":rowdata[1].trim(),"ingredients":rowdata[3].split(/\s*,\s*/)});
     });
     return {"dishes":dishes};
 }

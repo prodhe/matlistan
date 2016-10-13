@@ -5,8 +5,7 @@
 - Hjälpsida/popup som visar importfilsformatet
 - Snyggare popup vid delning av ingredienslista
 - Store: visa not found om listan inte finns
-- Kategorier och slumpning därefter
-- Sammanställd skriv ut-sida
+- Slumpning tar hänsyn till kategorier
 
 ## Historik
 
@@ -18,3 +17,5 @@ innan man sparar
 vid besök i matbutiken - telefonanpassat GUI
 - Ny design
 - Slumpfunktionen skall välja unika så långt det går
+- Kategorier
+- Sammanställd skriv ut-sida

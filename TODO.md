@@ -6,6 +6,8 @@
 - Snyggare popup vid delning av ingredienslista
 - Store: visa not found om listan inte finns
 - Slumpning tar hänsyn till kategorier
+- Trimma släpande kommatecken i ingredienslistan
+- Ingredienspopup i "Valda rätter"
 
 ## Historik
 

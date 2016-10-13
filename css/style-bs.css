@@ -25,3 +25,10 @@ footer {
     text-decoration: line-through;
     font-weight: bold;
 }
+
+#print {
+    font-size: 1.2em;
+}
+#print dd {
+    margin-left: 3em;
+}

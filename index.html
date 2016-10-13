@@ -1,106 +1,106 @@
 <!doctype html>
 <html lang="sv">
-    <head>
-        <!--[if lt IE 9]>
-            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-        <meta charset="UTF-8" />
-        <title>Matlistan</title>
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <link rel="stylesheet" href="./css/style-bs.css" />
-        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        <script src="./js/helpers.js"></script>
-        <script src="./js/loadext.js"></script>
-        <script src="./js/savelist.js"></script>
-        <script src="./js/printlist.js"></script>
-        <script src="./js/food.js"></script>
-    </head>
-    <body>
-        <div class="container-fluid">
-            <header class="row">
-                <div class="page-header text-center">
-                    <h1>Matlistan <span class="badge">2 . 0</span></h1>
-                </div>
-            </header>
+  <head>
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta charset="UTF-8" />
+    <title>Matlistan</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style-bs.css" />
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="./js/helpers.js"></script>
+    <script src="./js/loadext.js"></script>
+    <script src="./js/savelist.js"></script>
+    <script src="./js/printlist.js"></script>
+    <script src="./js/food.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <header class="row">
+        <div class="page-header text-center">
+          <h1>Matlistan <span class="badge">2 . 1</span></h1>
         </div>
-        <div class="container">
-            <main class="row">
-            <section class="col-sm-4">
-                <h2>Alla rätter</h2>
-                <div class="form-group form-inline">
-                    <div class="input-group">
-                        <label for="file_load_list">
-                            <button class="btn btn-default">
-                                <span class="glyphicon glyphicon-import"></span>
-                                <span id="label_file_input">Importera</span>
-                            </button>
-                            <input type="file" id="file_load_list" accept=".txt" />
-                        </label>
-                    </div>
-                </div>
-                <ul id="mainlist" class="list-group">
-                </ul>
-            </section>
-            <section class="col-sm-4">
-                <h2>Valda rätter</h2>
-                <div class="form-group form-inline">
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-cutlery"></span>
-                        </div>
-                        <input type="number" min="1" max="99" value="7" size="3" id="random_dishes" class="form-control" />
-                        <div class="input-group-btn">
-                            <button id="btn_random_userlist" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Slumpa">
-                                <span class="glyphicon glyphicon-random"></span>
-                                <span class="sr-only">Slumpa</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <button id="btn_clear_userlist" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Nollställ">
-                            <span class="glyphicon glyphicon-erase"></span>
-                            <span class="sr-only">Nollställ</span>
-                        </button>
-                    </div>
-                </div>
-                <ul id="userlist" class="list-group">
-                </ul>
-            </section>
-            <section class="col-sm-4">
-                <h2>Ingredienser</h2>
-                <div class="form-group form-inline">
-                    <div class="input-group">
-                        <!-- Not available on a static non-PHP web server
-                        <button id="btn_create_store_list" class="btn btn-default">
-                            <span class="glyphicon glyphicon-share"></span>
-                            Dela
-                        </button>
-                        //-->
-                    <button id="btn_print_list" class="btn btn-default">
-                            <span class="glyphicon glyphicon-print"></span>
-                            Skriv ut
-                        </button>
-                    </div>
-                </div>
-                <ul id="ingredientslist" class="list-unstyled">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-            </section>
-            </main>
-        </div>
-        <footer class="container-fluid">
-            <p class="text-center text-uppercase">
-            <small>Matlistan publiceras som öppen källkod - projektet finns på
-                <a href="http://github.com/prodhe/foodlist">GitHub</a></small>
-            </p>
-        </footer>
-        <div id="popup"></div>
-    </body>
+      </header>
+    </div>
+    <div class="container">
+      <main class="row">
+        <section class="col-sm-4">
+          <h2>Alla rätter</h2>
+          <div class="form-group form-inline">
+            <div class="input-group">
+              <label for="file_load_list">
+                <button class="btn btn-default">
+                  <span class="glyphicon glyphicon-import"></span>
+                  <span id="label_file_input">Importera</span>
+                </button>
+                <input type="file" id="file_load_list" accept=".txt" />
+              </label>
+            </div>
+          </div>
+          <ul id="mainlist" class="list-group">
+          </ul>
+        </section>
+        <section class="col-sm-4">
+          <h2>Valda rätter</h2>
+          <div class="form-group form-inline">
+            <div class="input-group">
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-cutlery"></span>
+              </div>
+              <input type="number" min="1" max="99" value="7" size="3" id="random_dishes" class="form-control" />
+              <div class="input-group-btn">
+                <button id="btn_random_userlist" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Slumpa">
+                  <span class="glyphicon glyphicon-random"></span>
+                  <span class="sr-only">Slumpa</span>
+                </button>
+              </div>
+            </div>
+            <div class="input-group">
+              <button id="btn_clear_userlist" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Nollställ">
+                <span class="glyphicon glyphicon-erase"></span>
+                <span class="sr-only">Nollställ</span>
+              </button>
+            </div>
+          </div>
+          <ul id="userlist" class="list-group">
+          </ul>
+        </section>
+        <section class="col-sm-4">
+          <h2>Ingredienser</h2>
+          <div class="form-group form-inline">
+            <div class="input-group">
+              <!-- Not available on a static non-PHP web server
+              <button id="btn_create_store_list" class="btn btn-default">
+                <span class="glyphicon glyphicon-share"></span>
+                Dela
+              </button>
+              //-->
+            <button id="btn_print_list" class="btn btn-default">
+                <span class="glyphicon glyphicon-print"></span>
+                Skriv ut
+              </button>
+            </div>
+          </div>
+          <ul id="ingredientslist" class="list-unstyled">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </section>
+      </main>
+    </div>
+    <footer class="container-fluid">
+      <p class="text-center text-uppercase">
+      <small>Matlistan publiceras som öppen källkod - projektet finns på
+        <a href="http://github.com/prodhe/foodlist">GitHub</a></small>
+      </p>
+    </footer>
+    <div id="popup"></div>
+  </body>
 </html>

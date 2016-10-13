@@ -11,10 +11,19 @@ function loadList(obj) {
     var data = obj.dishes;
     window.data = data;
     data.forEach(function (item) {
+        var str_ingredients = "";
+        item.ingredients.forEach(function (ing) {
+            str_ingredients += ing + ", ";
+        });
+        str_ingredients.trim();
         $('#mainlist')
             .append(
                 $('<li>')
                 .addClass("list-group-item")
+                .data("toggle", "tooltip")
+                .data("placement", "right")
+                .attr("title", safe2html(str_ingredients))
+                .tooltip()
                 .draggable({
                     helper: 'clone',
                     addClasses: false,

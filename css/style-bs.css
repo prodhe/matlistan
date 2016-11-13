@@ -32,3 +32,9 @@ footer {
 #print dd {
     margin-left: 3em;
 }
+
+@media print {
+    body {
+        padding: 10rem;
+    }
+}

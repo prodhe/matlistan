@@ -34,9 +34,9 @@ footer {
 }
 
 @media print {
-    @page {
-        margin: 4.0cm;
-    }
+    /* @page { */
+    /*     margin: 4.0cm; */
+    /* } */
     /* body { */
     /*     margin-left: 25mm; */
     /*     margin-right: 25mm; */

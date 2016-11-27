@@ -34,10 +34,14 @@ footer {
 }
 
 @media print {
-    body {
-        padding: 10rem;
+    @page {
+        margin: 4.0cm;
     }
+    /* body { */
+    /*     margin-left: 25mm; */
+    /*     margin-right: 25mm; */
+    /* } */
     #print {
-        font-size: 2em;
+        font-size: 16pt;
     }
 }

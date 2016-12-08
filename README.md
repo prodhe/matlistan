@@ -16,8 +16,8 @@ spara/dela för att ta med dig till affären
 Projektet är under utveckling. Se mer under [TODO](./TODO.md).
 
 Live demo:
-[https://vargklippan.se/matlistan/][demo]
+[https://prodhe.github.io/resys/][demo]
 
-[demo]: https://vargklippan.se/matlistan/
-[matlista]: https://vargklippan.se/matlistan/Matlista.txt
+[demo]: https://prodhe.github.io/resys/
+[matlista]: https://prodhe.github.io/foodlist/Matlista.txt
 [store]: https://vargklippan.se/matlistan/store/

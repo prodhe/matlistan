@@ -1,0 +1,40 @@
+CHARK | Blodpudding: Blodpudding
+CHARK | Bondomelett: lök, ägg, bacon, grädde
+CHARK | Korv stroganoff: korv, lök, champinjoner, paprikapulver, tomatpuré, dijonsenap, grädde, gräddfil, kalvfond, soja
+CHARK | Korv, ägg, rödbetor: korv, ägg, rödbetor
+CHARK | Ost- och skinkpaj: ost, skinka, fiberhusk, mandelmjöl, kokosmjöl, grädde, ägg, smör
+CHARK | Pizza: mandelmjöl, kokosmjöl, fiberhusk, ägg, olivolja, skinka, krossade tomater, ost, oregano
+CHARK | Rotfruktspannkakor: mjölk, ägg, morötter, potatis, palsternacka, lök, bacon
+FISK | Laxwok: lax, frysta grönsaker
+FISK | Panerad fisk m blomkålsmos: torsk, ägg, mandelmjöl, blomkål, grädde
+FISK | Senapsbakad torsk m rostad sötpotatis: torsk, senap, paprikapulver, gräddfil, gräslök, olivolja, lök
+FISK | Thailändsk fiskgryta: morötter, salladslök, kokosmjölk, ingefära, fisk, fiskfond
+FISK | Ugnstekt lax m blomkålsmos: lax, crème fraîche, honung, sambal oelek, blomkål, grädde 
+HELG | Fisksoppa m saffran: torsk, lax, räkor, purjolök, vitlök, hummerfond, vitt vin, grädde, crème fraîche, saffran
+HELG | Jordärtskockssoppa m räkor: 500 g jordärtskockor, schalottenlök, vitlök, olivolja, vitt vin, hönsbuljong, grädde, mjölk, 580 g handskalade räkor i lake, dill, tomater
+HELG | Kotletter m ugnsrostade rotfrukter: kotletter, crème fraîche, crème fraîche, soja, sambal oelek, valfria rotfrukter
+HELG | Pulled pork: fläskkarré, vitlök, paprikapulver, mörkt socker, spiskummin, flingsalt, cayennepeppar, tomatpuré, grädde, äppelcidervinäger, worchestersås, tabasco
+HELG | Rostbiff m potatisgratäng: Rostbiff, soja, balsamvinäger, honung, vitlök, kruka timjan, potatis, crème fraîche, 1 l grädde, lök
+HELG | Ryggbiff m potatis: Ryggbiff, majonnäs, potatis, chipotlesås, sallad, rödlök, feta, vindruvor
+KYCKLING | Caesarsallad: sallad, kyckling, bacon, caesardressing, tomater, parmesan
+KYCKLING | Kyckling balsamico: strimlad kyckling, kelda grytbas balsamico vitlök, purjolök, gul paprika, olivolja, sjögräsnudlar
+KYCKLING | Kyckling m rödcurry: kyckling, haricot vetts, röd currypasta, chili, fiskfond, kokosmjölk, lök, paprika
+KÖTT | Biff stroganoff: strimlat kött, lök, champinjoner, paprikapulver, tomatpuré, dijonsenap, grädde, gräddfil, kalvfond, soja
+KÖTT | Fläskkotlett m råstekt potatis: fläskkotletter, färsk rosmarin, potatis, balsamvinäger, vitlök, äppelcidervinäger, majonnäs
+KÖTT | Gulashgryta: lök, paprikapulver, grytbitar, krossade tomater, köttbuljong, röd paprika
+KÖTT | Hamburgare: köttfärs, lök, majonnäs, tomatpuré, saltgurka, bacon, ost
+KÖTT | Köttfärsröra: köttfärs, lök, champinjoner, vitlök, tomater
+KÖTT | Köttfärssås m sallad: köttfärs, tomatsås, tomatpuré, lök, mache
+KÖTT | Köttgryta: grytkött, morötter, palsternacka, buljong, grädde, rème fraîche, soja
+KÖTT | Renskav m äggröra: renskav, lök, grädde, crème fraîche, torkad svamp, ägg
+KÖTT | Tacopaj: köttfärs, fiberhusk, mandelmjöl, kokosmjöl, ägg, paprika, ost, crème fraîche, tacokrydda
+KÖTT | Tacos: köttfärs, lök, avokado, tacosås, tortillas, ost, tacokrydda
+KÖTT | Teryakibiff m sjögräsnudlar: strimlat kött, champinjoner, lök, teryakisås, ev gräslök, sjögräsnudlar
+KÖTT | Viltfärsbiffar m blomkålsmos: Viltfärsbiffar, blomkål, grädde
+SEMIVEG | Broccoligratäng: broccoli, ost, crème fraîche, ägg, philadelphia
+SEMIVEG | Chévresallad: Rödbetor, sallad, tomat, rödlök, chévre, honung, ev valnötter
+SEMIVEG | Fetaostpaj: fetaost, soltorkade tomater, fiberhusk, mandelmjöl, kokosmjöl, grädde, ägg, smör, oliver
+SEMIVEG | Grönsakssoppa: broccoli, purjolök, morötter, grönsaksbuljong
+SEMIVEG | Halloumisallad: sallad, halloumi, tomat, lök, soltorkade tomater
+SEMIVEG | Ostpaj: ost, fiberhusk, mandelmjöl, kokosmjöl, grädde, ägg, smör
+SEMIVEG | Plättar: kokosmjölk, mandelmjöl, kokosmjöl, fiberhusk, ägg

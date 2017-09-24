@@ -12,8 +12,11 @@ function loadList(obj) {
     window.data = data;
     data.forEach(function (item) {
         var str_ingredients = "";
+        var i = item.ingredients.length
         item.ingredients.forEach(function (ing) {
-            str_ingredients += ing + ", ";
+            i -= 1;
+            str_ingredients += ing;
+            str_ingredients += (i > 0)?", ":"";
         });
         str_ingredients.trim();
         $('#mainlist')

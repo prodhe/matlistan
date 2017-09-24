@@ -28,20 +28,20 @@ footer {
 
 #print {
     font-size: 1.2em;
+    padding-bottom: 1rem;
 }
 #print dd {
     margin-left: 3em;
 }
-
-@media print {
-    /* @page { */
-    /*     margin: 4.0cm; */
-    /* } */
-    /* body { */
-    /*     margin-left: 25mm; */
-    /*     margin-right: 25mm; */
-    /* } */
-    #print {
-        font-size: 16pt;
-    }
+#print table {
+    width: 100%;
 }
+
+.tal {
+    text-align: left;
+}
+
+.tar {
+    text-align: right;
+}
+

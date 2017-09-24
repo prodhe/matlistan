@@ -1,5 +1,9 @@
 /* style-bs.css - for bootstrap version */
 
+body {
+    background-color: #ffffea;
+}
+
 h2 {
     text-align: center;
 }

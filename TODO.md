@@ -6,11 +6,11 @@
 - Snyggare popup vid delning av ingredienslista
 - Store: visa not found om listan inte finns
 - Slumpning tar hänsyn till kategorier
-- Trimma släpande kommatecken i ingredienslistan
 - Ingredienspopup i "Valda rätter"
 
 ## Historik
 
+- Trimma släpande kommatecken i ingredienslistan
 - Läs in en egen matlista.txt direkt i webbläsaren
 - Ny design med bootstrap
 - Editera ingredienslistan med klick för att ignorera dessa

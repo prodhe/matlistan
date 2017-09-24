@@ -21,7 +21,6 @@ function printList() {
 	});
 
     if (store.ingredients.length > 0) {
-        console.log(store);
         // hide all current sections
         $('section').hide();
         $('footer').hide();
@@ -43,15 +42,25 @@ function printList() {
                 });
                 return obj;
             })
-            .append(function(){
-                var obj = $('<p>');
-                var str = "";
-                store.ingredients.forEach(function (ing) {
-                    str += ing + "<br />";
-                });
-                obj.append(str);
-                return obj;
-            })
+            .append($('<hr>'))
+            .append(
+                $('<table>')
+                .append(function(){
+                    var obj = $('<tbody>');
+                    var str = "";
+                    var count = 0;
+                    store.ingredients.forEach(function (ing) {
+                        if (count % 2 == 0) {
+                            str += "<tr><td class=\"tal\">" + ing + "</td>";
+                        } else {
+                            str += "<td class=\"tar\">" + ing + "</td></tr>";
+                        }
+                        count += 1;
+                    });
+                    obj.append(str);
+                    return obj;
+                })
+            )
         );
     }
 }

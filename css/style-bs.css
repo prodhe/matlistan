@@ -28,7 +28,20 @@ footer {
 
 #print {
     font-size: 1.2em;
+    padding-bottom: 1rem;
 }
 #print dd {
     margin-left: 3em;
 }
+#print table {
+    width: 100%;
+}
+
+.tal {
+    text-align: left;
+}
+
+.tar {
+    text-align: right;
+}
+

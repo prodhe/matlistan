@@ -1,0 +1,6 @@
+{
+	"ImportPath": "github.com/prodhe/foodlist",
+	"GoVersion": "go1.9",
+	"GodepVersion": "v79",
+	"Deps": []
+}

@@ -13,7 +13,7 @@ Slumpa måltider för valt antal dagar och få en sammanställd inköpslista.
 Projektet är under utveckling. Se mer under [TODO](./TODO.md).
 
 Live demo:
-[https://matlistan.herokuapp.com/][demo]
+[http://www.veckansmatlista.se/][demo]
 
-[demo]: https://matlistan.herokuapp.com/
-[matlista]: https://matlistan.herokuapp.com/Matlista.txt
+[demo]: http://www.veckansmatlista.se/
+[matlista]: http://www.veckansmatlista.se/matlista.txt

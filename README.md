@@ -2,16 +2,13 @@
 
 Slumpa måltider för valt antal dagar och få en sammanställd inköpslista.
 
-- Skapa en matlista ([se exempel][matlista])
-- Ladda upp textfilen i webbläsaren
-- Välj önskade måltider
+1. Skapa en matlista ([se exempel][matlista]) lokalt i din dator.
+2. Ladda upp textfilen i webbläsaren.
+3. Välj önskade måltider:
     - Dubbelklicka
     - Klicka-och-dra
     - Använd slumpfunktionen
-- En sammanställd ingredienslista skapas automagiskt, vilken du sen kan
-spara/dela för att ta med dig till affären
-    - Använd direktlänken som visas när listan är sparad, eller surfa in
-    till [Store][store] och skriv in ID-numret på din tillfälliga lista
+4. En sammanställd ingredienslista genereras, vilken kan skrivas ut och tas med till affären.
 
 Projektet är under utveckling. Se mer under [TODO](./TODO.md).
 
@@ -19,5 +16,4 @@ Live demo:
 [https://matlistan.herokuapp.com/][demo]
 
 [demo]: https://matlistan.herokuapp.com/
-[matlista]: https://prodhe.github.io/foodlist/Matlista.txt
-[store]: https://vargklippan.se/matlistan/store/
+[matlista]: https://matlistan.herokuapp.com/Matlista.txt

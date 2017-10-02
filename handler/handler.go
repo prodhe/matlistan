@@ -28,6 +28,8 @@ func New(db *mgo.Database) *handler {
 
 	h.mux.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("./assets/"))))
 	h.mux.HandleFunc("/signup", h.signup)
+	h.mux.HandleFunc("/login", h.login)
+	h.mux.HandleFunc("/logout", h.logout)
 	h.mux.HandleFunc("/session", h.session)
 
 	h.mux.HandleFunc("/", h.index)
@@ -41,15 +43,6 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func (h *handler) index(w http.ResponseWriter, r *http.Request) {
 	template.Render(w, "index", nil)
-}
-
-func (h *handler) session(w http.ResponseWriter, r *http.Request) {
-	session, err := h.sessionGet(w, r)
-	if err != nil {
-		fmt.Fprintf(w, "%v", err)
-	}
-
-	fmt.Fprintf(w, "%v", session)
 }
 
 func (h *handler) signup(w http.ResponseWriter, r *http.Request) {
@@ -100,9 +93,66 @@ func (h *handler) signup(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
+func (h *handler) login(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodGet {
+		template.Render(w, "login", nil)
+		return
+	}
+
+	if r.Method != http.MethodPost {
+		http.Error(w, "Only GET/POST allowed.", http.StatusMethodNotAllowed)
+	}
+
+	u := r.PostFormValue("username")
+	p := r.PostFormValue("password")
+
+	var account model.Account
+
+	err := h.db.C("account").Find(bson.M{"username": u}).One(&account)
+	err2 := bcrypt.CompareHashAndPassword([]byte(account.Password), []byte(p))
+	if err != nil || err2 != nil {
+		data := template.Fields{
+			"FormError": "Fel användarnamn/lösenord.",
+			"Username":  u,
+		}
+		template.Render(w, "login", data)
+		return
+	}
+
+	session, err := h.sessionGet(w, r)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("session error: %s", err), http.StatusInternalServerError)
+	}
+	err = h.db.C("session").UpdateId(session.Id, bson.M{
+		"pid":           account.Pid,
+		"lastseen":      time.Now(),
+		"authenticated": true,
+	})
+	if err != nil {
+		http.Error(w, fmt.Sprintf("session error: %s", err), http.StatusInternalServerError)
+	}
+
+	http.Redirect(w, r, "/session", http.StatusSeeOther)
+}
+
+func (h *handler) logout(w http.ResponseWriter, r *http.Request) {
+	h.sessionDelete(w, r)
+	http.Redirect(w, r, "/session", http.StatusSeeOther)
+}
+
+func (h *handler) session(w http.ResponseWriter, r *http.Request) {
+	session, err := h.sessionGet(w, r)
+	if err != nil {
+		fmt.Fprintf(w, "error: %v", err)
+	}
+
+	fmt.Fprintf(w, "session: %v", session)
+}
+
 func (h *handler) sessionGet(w http.ResponseWriter, r *http.Request) (*model.Session, error) {
+	var session model.Session
+
 	c, err := r.Cookie("sid")
-	fmt.Printf("cookie get: %v\n", c)
 	if err != nil || c.Value == "" {
 		return h.sessionSet(w, r)
 	}
@@ -112,14 +162,15 @@ func (h *handler) sessionGet(w http.ResponseWriter, r *http.Request) (*model.Ses
 		return nil, fmt.Errorf("could not unescape session id: %v", err)
 	}
 
-	count, err := h.db.C("session").FindId(bson.ObjectIdHex(sid)).Count()
+	dbsess := h.db.Session.Copy()
+	defer dbsess.Close()
+
+	count, err := dbsess.DB("").C("session").FindId(bson.ObjectIdHex(sid)).Count()
 	if count < 1 || err != nil {
 		return h.sessionSet(w, r)
 	}
 
-	var session model.Session
-
-	err = h.db.C("session").FindId(bson.ObjectIdHex(sid)).One(&session)
+	err = dbsess.DB("").C("session").FindId(bson.ObjectIdHex(sid)).One(&session)
 	if err != nil {
 		return nil, fmt.Errorf("could not find session: %v", err)
 	}
@@ -130,7 +181,7 @@ func (h *handler) sessionGet(w http.ResponseWriter, r *http.Request) (*model.Ses
 func (h *handler) sessionSet(w http.ResponseWriter, r *http.Request) (*model.Session, error) {
 	session := model.Session{
 		Id:            bson.NewObjectId(),
-		Pid:           bson.NewObjectId(),
+		Pid:           "000000000000",
 		LastSeen:      time.Now(),
 		Authenticated: false,
 	}
@@ -148,8 +199,31 @@ func (h *handler) sessionSet(w http.ResponseWriter, r *http.Request) (*model.Ses
 		Secure:   false,
 		MaxAge:   0,
 	}
-	fmt.Printf("cookie set: %v\n", cookie)
 	http.SetCookie(w, &cookie)
 
 	return &session, nil
+}
+
+func (h *handler) sessionDelete(w http.ResponseWriter, r *http.Request) error {
+	session, err := h.sessionGet(w, r)
+	if err != nil {
+		return fmt.Errorf("could not get session: %v", err)
+	}
+
+	err = h.db.C("session").RemoveId(session.Id)
+	if err != nil {
+		return fmt.Errorf("could not remove session id: %v", err)
+	}
+
+	cookie := http.Cookie{
+		Name:     "sid",
+		Value:    "",
+		Path:     "/",
+		HttpOnly: true,
+		Secure:   false,
+		MaxAge:   0,
+	}
+	http.SetCookie(w, &cookie)
+
+	return nil
 }

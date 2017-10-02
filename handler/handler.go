@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 	"time"
@@ -32,7 +33,7 @@ func New(db *mgo.Database) *handler {
 	h.mux.HandleFunc("/logout", h.logout)
 	h.mux.HandleFunc("/session", h.session)
 
-	h.mux.HandleFunc("/", h.index)
+	h.mux.HandleFunc("/", h.sessionHandle(h.index))
 
 	return h
 }
@@ -132,12 +133,12 @@ func (h *handler) login(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, fmt.Sprintf("session error: %s", err), http.StatusInternalServerError)
 	}
 
-	http.Redirect(w, r, "/session", http.StatusSeeOther)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
 func (h *handler) logout(w http.ResponseWriter, r *http.Request) {
 	h.sessionDelete(w, r)
-	http.Redirect(w, r, "/session", http.StatusSeeOther)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
 func (h *handler) session(w http.ResponseWriter, r *http.Request) {
@@ -147,6 +148,21 @@ func (h *handler) session(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprintf(w, "session: %v", session)
+}
+
+func (h *handler) sessionHandle(func(w http.ResponseWriter, r *http.Request)) func(http.ResponseWriter, *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		session, err := h.sessionGet(w, r)
+		if err != nil {
+			log.Fatal("session error")
+		}
+
+		if !session.Authenticated {
+			http.Redirect(w, r, "/login", http.StatusSeeOther)
+		}
+
+		fmt.Fprintf(w, "inloggad! :-)")
+	}
 }
 
 func (h *handler) sessionGet(w http.ResponseWriter, r *http.Request) (*model.Session, error) {

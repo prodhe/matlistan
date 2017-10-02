@@ -9,9 +9,19 @@ import (
 	"os"
 
 	"github.com/prodhe/matlistan/handler"
+	"github.com/prodhe/matlistan/template"
 )
 
 func main() {
+	template.SetDirectory("./tmpl/")
+	df := template.Fields{
+		"StaticDir": "./",
+	}
+	template.Load("index", df, "base.html", "index.html")
+	template.Load("signup", df, "base.html", "signup.html")
+
+	template.Develop(true)
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8000"
@@ -27,6 +37,7 @@ func main() {
 		fmt.Printf("could not dial mongo db: %v", err)
 	}
 	defer session.Close()
+	session.SetMode(mgo.Monotonic, true)
 
 	h := handler.New(session.DB(""))
 

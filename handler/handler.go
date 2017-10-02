@@ -4,16 +4,20 @@ import (
 	"fmt"
 	"net/http"
 
+	mgo "gopkg.in/mgo.v2"
+
 	"github.com/prodhe/matlistan/model"
 )
 
 type handler struct {
 	mux *http.ServeMux
+	db  *mgo.Database
 }
 
-func New() *handler {
+func New(db *mgo.Database) *handler {
 	h := &handler{
 		mux: http.NewServeMux(),
+		db:  db,
 	}
 
 	h.mux.HandleFunc("/recipes", h.recipes)

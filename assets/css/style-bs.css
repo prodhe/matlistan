@@ -1,16 +1,16 @@
 /* style-bs.css - for bootstrap version */
 
 body {
-    background-color: #ffffea;
+	background-color: #ffffea;
 }
 
 h2 {
-    text-align: center;
+	text-align: center;
 }
 
 footer {
-    padding-top: 1em;
-    /*background-color: #efefef;*/
+	padding-top: 1em;
+	/*background-color: #efefef;*/
 }
 
 footer small {
@@ -19,38 +19,38 @@ footer small {
 }
 
 .list-group-item:hover {
-    background-color: #efefef;
+	background-color: #efefef;
 }
 .list-group-item.ui-draggable-dragging {
-    width: 90%;
-    background-color: #efefef;
+	width: 90%;
+	background-color: #efefef;
 }
 
 #userlist {
-    min-height: 10em;
+	min-height: 10em;
 }
 
 .item-ignore {
-    text-decoration: line-through;
-    font-weight: bold;
+	text-decoration: line-through;
+	font-weight: bold;
 }
 
 #print {
-    font-size: 1.2em;
-    padding-bottom: 1rem;
+	font-size: 1.2em;
+	padding-bottom: 1rem;
 }
 #print dd {
-    margin-left: 3em;
+	margin-left: 3em;
 }
 #print table {
-    width: 100%;
+	width: 100%;
 }
 
 .tal {
-    text-align: left;
+	text-align: left;
 }
 
 .tar {
-    text-align: right;
+	text-align: right;
 }
 

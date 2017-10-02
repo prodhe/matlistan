@@ -17,31 +17,37 @@
 {{ block "body" . }}
 <body>
 
-  {{ block "header" . }}
-  <header>
-    <h1>Veckans matlista</h1>
+{{ block "header" . }}
+<div class="container-fluid">
+  <header class="row">
+    <div class="page-header text-center">
+      <h1>Veckans matlista <span class="badge">3 . 0</span></h1>
+    </div>
   </header>
-  {{ end }}
+</div>
+{{ end }}
 
   {{ block "main" . }}
     <p>Empty.</p>
   {{ end }}
 
   {{ block "footer" . }}
-  <footer>
-    <div class="row row-thin row-vcenter wrap">
-      <div class="col-lg-12">
-        Veckans matlista
+  <div class="container-fluid">
+  <footer class="row">
+      <div class="col-sm-12">
+  <small>Matlistan publiceras som <a href="http://github.com/prodhe/foodlist">öppen källkod</a></small>
       </div>
   </footer>
+  </div>
   {{ end }}
 
+<div id="popup"></div>
+<script src="{{ .StaticDir }}/js/helpers.js"></script>
+<script src="{{ .StaticDir }}/js/loadext.js"></script>
+<script src="{{ .StaticDir }}/js/savelist.js"></script>
+<script src="{{ .StaticDir }}/js/printlist.js"></script>
+<script src="{{ .StaticDir }}/js/food.js"></script>
 
-    <script src="{{ .StaticDir }}/js/helpers.js"></script>
-    <script src="{{ .StaticDir }}/js/loadext.js"></script>
-    <script src="{{ .StaticDir }}/js/savelist.js"></script>
-    <script src="{{ .StaticDir }}/js/printlist.js"></script>
-    <script src="{{ .StaticDir }}/js/food.js"></script>
 </body>
 {{ end }}
 </html>

@@ -21,6 +21,7 @@ func New(db *mgo.Database) *handler {
 		db:  db,
 	}
 
+	h.mux.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("./assets/"))))
 	h.mux.HandleFunc("/signup", h.signup)
 	h.mux.HandleFunc("/recipes", h.recipes)
 
@@ -46,7 +47,7 @@ func (h *handler) recipes(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *handler) index(w http.ResponseWriter, r *http.Request) {
-	http.FileServer(http.Dir("./web/")).ServeHTTP(w, r)
+	template.Render(w, "index", nil)
 }
 
 func (h *handler) signup(w http.ResponseWriter, r *http.Request) {

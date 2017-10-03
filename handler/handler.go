@@ -38,6 +38,7 @@ func New(db *mgo.Database) *handler {
 
 	h.mux.HandleFunc("/deleteaccount", h.sessionHandle(h.deleteAccount))
 	h.mux.HandleFunc("/profile", h.sessionHandle(h.profile))
+	h.mux.HandleFunc("/recipes/add", h.sessionHandle(h.recipesAdd))
 	h.mux.HandleFunc("/recipes", h.sessionHandle(h.recipes))
 
 	h.mux.HandleFunc("/", h.sessionHandle(h.index))
@@ -68,6 +69,38 @@ func (h *handler) recipes(w http.ResponseWriter, r *http.Request) {
 		"Authenticated": true,
 	}
 	template.Render(w, "recipes", data)
+}
+
+func (h *handler) recipesAdd(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Only POST allowed.", http.StatusMethodNotAllowed)
+		return
+	}
+
+	session, err := h.sessionGet(w, r)
+	if err != nil {
+		http.Error(w, "session error", http.StatusInternalServerError)
+		return
+	}
+
+	formtitle := r.PostFormValue("title")
+	formingredients := r.PostFormValue("ingredients")
+	description := r.PostFormValue("description")
+
+	recipe := model.Recipe{
+		Id:          bson.NewObjectId(),
+		Pid:         session.Pid,
+		Description: description,
+	}
+	title, categories := recipe.BreakTitle(formtitle)
+	ingredients := recipe.BreakIngredients(formingredients)
+	recipe.Title = title
+	recipe.Categories = categories
+	recipe.Ingredients = ingredients
+
+	h.db.C("recipe").Insert(recipe)
+
+	http.Redirect(w, r, "/recipes", http.StatusSeeOther)
 }
 
 func (h *handler) about(w http.ResponseWriter, r *http.Request) {

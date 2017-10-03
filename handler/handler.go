@@ -28,6 +28,7 @@ func New(db *mgo.Database) *handler {
 	}
 
 	h.mux.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("./assets/"))))
+
 	h.mux.HandleFunc("/signup", h.signup)
 	h.mux.HandleFunc("/login", h.login)
 	h.mux.HandleFunc("/logout", h.logout)
@@ -37,6 +38,8 @@ func New(db *mgo.Database) *handler {
 
 	h.mux.HandleFunc("/deleteaccount", h.sessionHandle(h.deleteAccount))
 	h.mux.HandleFunc("/profile", h.sessionHandle(h.profile))
+	h.mux.HandleFunc("/recipes", h.sessionHandle(h.recipes))
+
 	h.mux.HandleFunc("/", h.sessionHandle(h.index))
 
 	return h
@@ -58,6 +61,13 @@ func (h *handler) profile(w http.ResponseWriter, r *http.Request) {
 		"Authenticated": true,
 	}
 	template.Render(w, "profile", data)
+}
+
+func (h *handler) recipes(w http.ResponseWriter, r *http.Request) {
+	data := template.Fields{
+		"Authenticated": true,
+	}
+	template.Render(w, "recipes", data)
 }
 
 func (h *handler) about(w http.ResponseWriter, r *http.Request) {

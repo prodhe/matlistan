@@ -45,7 +45,10 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *handler) index(w http.ResponseWriter, r *http.Request) {
-	template.Render(w, "index", nil)
+	data := template.Fields{
+		"Authenticated": true,
+	}
+	template.Render(w, "index", data)
 }
 
 func (h *handler) about(w http.ResponseWriter, r *http.Request) {
@@ -60,11 +63,8 @@ func (h *handler) signup(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method != http.MethodPost {
 		http.Error(w, "Only GET/POST allowed.", http.StatusMethodNotAllowed)
+		return
 	}
-
-	fmt.Printf("%v\n", r)
-
-	fmt.Printf("username: %v\npassword: %v\n", r.PostFormValue("username"), r.PostFormValue("password"))
 
 	u := r.PostFormValue("username")
 	p, err := bcrypt.GenerateFromPassword([]byte(r.PostFormValue("password")), 10)
@@ -156,7 +156,7 @@ func (h *handler) session(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "session: %v", session)
 }
 
-func (h *handler) sessionHandle(func(w http.ResponseWriter, r *http.Request)) func(http.ResponseWriter, *http.Request) {
+func (h *handler) sessionHandle(next func(w http.ResponseWriter, r *http.Request)) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		session, err := h.sessionGet(w, r)
 		if err != nil {
@@ -167,7 +167,7 @@ func (h *handler) sessionHandle(func(w http.ResponseWriter, r *http.Request)) fu
 			http.Redirect(w, r, "/login", http.StatusSeeOther)
 		}
 
-		fmt.Fprintf(w, "inloggad! :-)")
+		next(w, r)
 	}
 }
 

@@ -4,10 +4,12 @@ Logga in
 
 {{ define "main" }}
   <main class="row">
-    <div class="col-lg-3"></div>
+    <div class="col-3"></div>
     <section class="col-lg-6">
       <h2>Logga in</h2>
-      <p class="invalid-feedback">{{ .FormError }}</p>
+      {{ if .FormError }}
+      <p class="alert alert-danger">{{ .FormError }}</p>
+      {{ end }}
       <form method="post" action="/login">
 
       <div class="form-group">
@@ -23,7 +25,7 @@ Logga in
       <button type="submit" class="btn btn-primary">Skicka</button>
 
       </form>
-      <div class="text-center m-3">
+      <div class="text-center mt-3">
       <p>
         Har du inget konto? Skapa ett alldeles gratis nu på direkten!
       </p>
@@ -33,6 +35,6 @@ Logga in
       <p><a href="/signup">Skapa konto</a></p>
       </div>
     </section>
-    <div class="col-lg-3"></div>
+    <div class="col-3"></div>
   </main>
 {{ end }}

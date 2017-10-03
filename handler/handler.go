@@ -33,6 +33,8 @@ func New(db *mgo.Database) *handler {
 	h.mux.HandleFunc("/logout", h.logout)
 	h.mux.HandleFunc("/session", h.session)
 
+	h.mux.HandleFunc("/about", h.about)
+
 	h.mux.HandleFunc("/", h.sessionHandle(h.index))
 
 	return h
@@ -44,6 +46,10 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func (h *handler) index(w http.ResponseWriter, r *http.Request) {
 	template.Render(w, "index", nil)
+}
+
+func (h *handler) about(w http.ResponseWriter, r *http.Request) {
+	template.Render(w, "about", nil)
 }
 
 func (h *handler) signup(w http.ResponseWriter, r *http.Request) {

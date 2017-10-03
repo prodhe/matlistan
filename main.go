@@ -21,6 +21,7 @@ func main() {
 	template.Load("signup", df, "base.html", "signup.html")
 	template.Load("login", df, "base.html", "login.html")
 	template.Load("about", df, "base.html", "about.html")
+	template.Load("profile", df, "base.html", "profile.html")
 
 	template.Develop(true)
 

@@ -35,6 +35,8 @@ func New(db *mgo.Database) *handler {
 
 	h.mux.HandleFunc("/about", h.about)
 
+	h.mux.HandleFunc("/deleteaccount", h.sessionHandle(h.deleteAccount))
+	h.mux.HandleFunc("/profile", h.sessionHandle(h.profile))
 	h.mux.HandleFunc("/", h.sessionHandle(h.index))
 
 	return h
@@ -49,6 +51,13 @@ func (h *handler) index(w http.ResponseWriter, r *http.Request) {
 		"Authenticated": true,
 	}
 	template.Render(w, "index", data)
+}
+
+func (h *handler) profile(w http.ResponseWriter, r *http.Request) {
+	data := template.Fields{
+		"Authenticated": true,
+	}
+	template.Render(w, "profile", data)
 }
 
 func (h *handler) about(w http.ResponseWriter, r *http.Request) {
@@ -144,6 +153,16 @@ func (h *handler) login(w http.ResponseWriter, r *http.Request) {
 
 func (h *handler) logout(w http.ResponseWriter, r *http.Request) {
 	h.sessionDelete(w, r)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
+// FIXME
+func (h *handler) deleteAccount(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Only POST allowed.", http.StatusMethodNotAllowed)
+		return
+	}
+
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 

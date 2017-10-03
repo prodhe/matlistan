@@ -1,0 +1,28 @@
+{{ define "headTitle" }}
+Din profil
+{{ end }}
+
+{{ define "main" }}
+  <main class="row">
+    <div class="col-3"></div>
+    <section class="col-lg-6">
+      <h2>Profil</h2>
+      <p>
+      Ditt användarkonto existerar endast för att kunna spara recepten på en plats du enkelt kan komma åt. Matlistan kommer aldrig be dig om din e-postadress för onödiga utskick, eller begära privat information om inte absolut nödvändigt. Vilket inget är på plattformen idag.
+      </p>
+      {{ if false }}
+      <p>
+        Du kan när som helst radera hela din befintliga profil och användarkonto. Recepten kommer dock finnas kvar, men inte hänvisa till vem som ursprungligen skapat dem. Sharing is caring!
+      </p>
+      <hr>
+      <p>
+      <form method="post" action="/deleteaccount">
+        <button type="submit" class="btn btn-danger">Radera konto</button>
+      </form>
+      </p>
+      <hr>
+      {{ end }}
+    </section>
+    <div class="col-3"></div>
+  </main>
+{{ end }}

@@ -31,12 +31,12 @@ func main() {
 		port = "8000"
 	}
 
-	mongodb_uri := os.Getenv("MONGODB_URI")
-	if mongodb_uri == "" {
-		mongodb_uri = "mongodb://localhost:27017/foodlist"
+	mongodbURI := os.Getenv("MONGODB_URI")
+	if mongodbURI == "" {
+		mongodbURI = "mongodb://localhost:27017/foodlist"
 	}
 
-	session, err := mgo.Dial(mongodb_uri)
+	session, err := mgo.Dial(mongodbURI)
 	if err != nil {
 		fmt.Printf("could not dial mongo db: %v", err)
 	}

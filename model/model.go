@@ -109,5 +109,8 @@ func (r *Recipe) BreakTitle(s string) (string, []string) {
 		return s, nil
 	}
 
-	return "", nil
+	// index 0 is considered to be the title
+	split := strings.Split(s, " #")
+
+	return strings.TrimSpace(split[0]), split[1:]
 }

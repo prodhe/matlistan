@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
@@ -65,8 +66,17 @@ func (h *handler) profile(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *handler) recipes(w http.ResponseWriter, r *http.Request) {
+	pid := r.Context().Value("pid")
+
+	recipes := make([]model.Recipe, 0)
+	err := h.db.C("recipe").Find(bson.M{"pid": pid}).All(&recipes)
+	if err != nil {
+		recipes = nil
+	}
+
 	data := template.Fields{
 		"Authenticated": true,
+		"Recipes":       recipes,
 	}
 	template.Render(w, "recipes", data)
 }
@@ -229,7 +239,10 @@ func (h *handler) sessionHandle(next func(w http.ResponseWriter, r *http.Request
 			http.Redirect(w, r, "/login", http.StatusSeeOther)
 		}
 
-		next(w, r)
+		ctx := r.Context()
+		ctx = context.WithValue(ctx, "pid", session.Pid)
+
+		next(w, r.WithContext(ctx))
 	}
 }
 

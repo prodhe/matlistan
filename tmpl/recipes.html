@@ -31,12 +31,31 @@ Recept
       </form>
     </section>
     <section class="col-md-6">
-      <h3>Befintliga</h3>
+      <h3>Din receptbank</h3>
       {{ if not .Recipes }}
-      <p>Inga.</p>
+      <p>Inga just nu. Importera en lista eller skapa ett här bredvid!</p>
       {{ end }}
       {{ range .Recipes }}
+      <p>
+      	<b>{{ .Title }}</b>
+      	{{ range .Categories }}
+      	  <i>{{ . }}</i>
+      	{{ end }}
+      	<br>
+      	{{ range .Ingredients }}
+      	  {{ if .Amount }}{{ .Amount }}{{ end }}
+      	  {{ if .Unit }}{{ .Unit }}{{ end }}
+      	  {{ .Name }}<br>
+      	{{ end }}<br>
+      	{{ .Description }}
+      </p>
       {{ end }}
     </section>
+    </div>
+    <div class="row">
+    <section class="col-lg-12">
+      <h3>Utforska</h3>
+    </section>
+    </div>
   </main>
 {{ end }}

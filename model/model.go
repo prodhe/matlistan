@@ -50,7 +50,12 @@ func (r *Recipe) BreakIngredients(s string) []ingredient {
 
 	lines := strings.Split(s, "\n")
 	for _, line := range lines {
-		line = strings.Trim(line, "\r")
+		line = strings.TrimSpace(line)
+
+		if line == "" {
+			continue
+		}
+
 		if !strings.ContainsAny(line, " ") {
 			ings = append(ings, ingredient{0, "", line})
 			continue

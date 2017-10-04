@@ -37,12 +37,12 @@ func New(db *mgo.Database) *handler {
 
 	h.mux.HandleFunc("/about", h.about)
 
-	h.mux.HandleFunc("/deleteaccount", h.sessionHandle(h.deleteAccount))
-	h.mux.HandleFunc("/profile", h.sessionHandle(h.profile))
-	h.mux.HandleFunc("/recipes/add", h.sessionHandle(h.recipesAdd))
-	h.mux.HandleFunc("/recipes", h.sessionHandle(h.recipes))
+	h.mux.HandleFunc("/deleteaccount", h.sessionValidate(h.deleteAccount))
+	h.mux.HandleFunc("/profile", h.sessionValidate(h.profile))
+	h.mux.HandleFunc("/recipes/add", h.sessionValidate(h.recipesAdd))
+	h.mux.HandleFunc("/recipes", h.sessionValidate(h.recipes))
 
-	h.mux.HandleFunc("/", h.sessionHandle(h.index))
+	h.mux.HandleFunc("/", h.sessionValidate(h.index))
 
 	return h
 }
@@ -228,7 +228,7 @@ func (h *handler) session(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "session: %v", session)
 }
 
-func (h *handler) sessionHandle(next func(w http.ResponseWriter, r *http.Request)) func(http.ResponseWriter, *http.Request) {
+func (h *handler) sessionValidate(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		session, err := h.sessionGet(w, r)
 		if err != nil {

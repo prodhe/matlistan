@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 
 	mgo "gopkg.in/mgo.v2"
@@ -24,7 +24,9 @@ func main() {
 	template.Load("profile", df, "base.html", "profile.html")
 	template.Load("recipes", df, "base.html", "recipes.html")
 
-	template.Develop(true)
+	if os.Getenv("DEVMODE") != "" {
+		template.Develop(true)
+	}
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -38,15 +40,16 @@ func main() {
 
 	session, err := mgo.Dial(mongodbURI)
 	if err != nil {
-		fmt.Printf("could not dial mongo db: %v", err)
+		log.Printf("could not dial mongo db: %v\n", err)
 	}
 	defer session.Close()
 	session.SetMode(mgo.Monotonic, true)
+	log.Println("Connected to MongoDB")
 
 	h := handler.New(session.DB(""))
 
-	fmt.Println("Listening on port", port)
+	log.Println("Listening on port", port)
 	if err := http.ListenAndServe(":"+port, h); err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 }

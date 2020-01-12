@@ -129,6 +129,7 @@ func (h *handler) recipesAdd(w http.ResponseWriter, r *http.Request) {
 	recipe := model.Recipe{
 		Id:          bson.NewObjectId(),
 		Pid:         session.Pid,
+		AuthorPid:   session.Pid,
 		Description: description,
 	}
 	title, categories := recipe.BreakTitle(formtitle)

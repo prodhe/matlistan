@@ -20,11 +20,12 @@ func main() {
 	template.Load("index", df, "base.html", "index.html")
 	template.Load("signup", df, "base.html", "signup.html")
 	template.Load("login", df, "base.html", "login.html")
-	template.Load("about", df, "base.html", "about.html")
+	template.Load("help", df, "base.html", "help.html")
 	template.Load("profile", df, "base.html", "profile.html")
 	template.Load("recipes", df, "base.html", "recipes.html")
 
 	if os.Getenv("DEVMODE") != "" {
+		log.Println("Development mode")
 		template.Develop(true)
 	}
 

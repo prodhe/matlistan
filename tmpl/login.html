@@ -4,7 +4,6 @@ Logga in
 
 {{ define "main" }}
 <main class="row">
-    <div class="col-3"></div>
     <section class="col-lg-6">
         <h2>Logga in</h2>
         {{ if .FormError }}
@@ -36,6 +35,26 @@ Logga in
             <p><a href="/signup">Skapa konto</a></p>
         </div>
     </section>
-    <div class="col-3"></div>
+    <section class="col-lg-6">
+        <h2>Om tjänsten</h2>
+        <p>
+            Veckans matlista är ett gratisverktyg där ni kan komponera ihop er egen matlista med valfritt antal måltider och få en sammanställd inköpslista över samtliga ingredienser.
+        </p>
+        <p>
+            <img class="img-fluid img-thumbnail" src="{{ .StaticDir }}/matlistan_demo.png"/>
+        </p>
+        <p>
+            Recepten tillhandahålls av er själva, eller andra på sajten, och kan också importeras i ett enkelt textfilsformat.
+        </p>
+        <p>
+            Användarkontot är en anonym profil, med valfritt användarnamn, endast avsett för att ge er en egen receptbank i databasen. Ni behöver inte ange personliga uppgifter eller e-postadress och ni får gärna dela en inloggning med vänner och familj, om ni tycker det är enklare. Notera dock att användarnamnet kan komma att exponeras mot andra användare i samband med delning av recept.
+        </p>
+        <p>
+            Kontouppgifterna kan inte nollställas, om ni skulle glömma bort lösenordet.
+        </p>
+        <p>
+            Källkoden till hela plattformen publiceras öppet på <a href="https://github.com/prodhe/matlistan/">Github</a> och utvecklas av Petter Rodhelind.
+        </p>
+    </section>
 </main>
 {{ end }}

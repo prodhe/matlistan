@@ -35,8 +35,7 @@ func New(db *mgo.Database) *handler {
 	h.mux.HandleFunc("/login", h.login)
 	h.mux.HandleFunc("/logout", h.logout)
 	h.mux.HandleFunc("/session", h.session)
-
-	h.mux.HandleFunc("/about", h.about)
+	h.mux.HandleFunc("/help", h.help)
 
 	h.mux.HandleFunc("/deleteaccount", h.sessionValidate(h.deleteAccount))
 	h.mux.HandleFunc("/profile", h.sessionValidate(h.profile))
@@ -59,6 +58,18 @@ func (h *handler) index(w http.ResponseWriter, r *http.Request) {
 		"Authenticated": true,
 	}
 	template.Render(w, "index", data)
+}
+
+func (h *handler) help(w http.ResponseWriter, r *http.Request) {
+	session, err := h.sessionGet(w, r)
+	if err != nil {
+		http.Error(w, "session error", http.StatusInternalServerError)
+		return
+	}
+	data := template.Fields{
+		"Authenticated": session.Authenticated,
+	}
+	template.Render(w, "help", data)
 }
 
 func (h *handler) profile(w http.ResponseWriter, r *http.Request) {
@@ -173,21 +184,13 @@ func (h *handler) recipesDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	info, err := h.db.C("recipe").RemoveAll(bson.M{"_id": id})
-	if err != nil {
+	if err := h.db.C("recipe").RemoveId(id); err != nil {
 		log.Println("could not remove recipe:", err)
-	}
-	if info.Removed < 1 {
-		log.Println("delete: recipe ID not found")
 	} else {
-		log.Println("delete:", rec.Title)
+		log.Println("deleted:", rec.Title)
 	}
 
 	http.Redirect(w, r, "/recipes", http.StatusSeeOther)
-}
-
-func (h *handler) about(w http.ResponseWriter, r *http.Request) {
-	template.Render(w, "about", nil)
 }
 
 func (h *handler) signup(w http.ResponseWriter, r *http.Request) {

@@ -16,8 +16,9 @@ type Account struct {
 }
 
 type Profile struct {
-	Id   bson.ObjectId `bson:"_id"`
-	Name string        `json:"name"`
+	Id      bson.ObjectId `bson:"_id"`
+	Name    string        `json:"name"`
+	Deleted bool          `json:"deleted"`
 }
 
 type Session struct {

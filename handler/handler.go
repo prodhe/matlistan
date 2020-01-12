@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -28,7 +29,7 @@ func New(db *mgo.Database) *handler {
 		db:  db,
 	}
 
-	h.mux.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("./assets/"))))
+	h.mux.Handle("/static/", h.noCache(http.StripPrefix("/static", http.FileServer(http.Dir("./assets/")))))
 
 	h.mux.HandleFunc("/signup", h.signup)
 	h.mux.HandleFunc("/login", h.login)
@@ -40,7 +41,9 @@ func New(db *mgo.Database) *handler {
 	h.mux.HandleFunc("/deleteaccount", h.sessionValidate(h.deleteAccount))
 	h.mux.HandleFunc("/profile", h.sessionValidate(h.profile))
 	h.mux.HandleFunc("/recipes/add", h.sessionValidate(h.recipesAdd))
+	h.mux.HandleFunc("/recipes/delete", h.sessionValidate(h.recipesDelete))
 	h.mux.HandleFunc("/recipes", h.sessionValidate(h.recipes))
+	h.mux.HandleFunc("/recipes.json", h.sessionValidate(h.apiRecipes))
 
 	h.mux.HandleFunc("/", h.sessionValidate(h.index))
 
@@ -81,6 +84,20 @@ func (h *handler) recipes(w http.ResponseWriter, r *http.Request) {
 	template.Render(w, "recipes", data)
 }
 
+func (h *handler) apiRecipes(w http.ResponseWriter, r *http.Request) {
+	pid := r.Context().Value("pid")
+
+	recipes := make([]model.Recipe, 0)
+	err := h.db.C("recipe").Find(bson.M{"pid": pid}).All(&recipes)
+	if err != nil {
+		recipes = nil
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(recipes)
+}
+
 func (h *handler) recipesAdd(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Only POST allowed.", http.StatusMethodNotAllowed)
@@ -93,6 +110,7 @@ func (h *handler) recipesAdd(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	rid := r.PostFormValue("rid")
 	formtitle := r.PostFormValue("title")
 	formingredients := r.PostFormValue("ingredients")
 	description := r.PostFormValue("description")
@@ -108,7 +126,62 @@ func (h *handler) recipesAdd(w http.ResponseWriter, r *http.Request) {
 	recipe.Categories = categories
 	recipe.Ingredients = ingredients
 
-	h.db.C("recipe").Insert(recipe)
+	if rid == "" {
+		h.db.C("recipe").Insert(recipe)
+		log.Println("inserted new recipe:", recipe.Title)
+	} else {
+		recipe.Id = bson.ObjectIdHex(rid)
+		err := h.db.C("recipe").Update(bson.M{"_id": recipe.Id}, recipe)
+		if err != nil {
+			log.Println("could not update recipe:", err)
+		}
+	}
+
+	http.Redirect(w, r, "/recipes", http.StatusSeeOther)
+}
+
+func (h *handler) recipesDelete(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Only POST allowed.", http.StatusMethodNotAllowed)
+		return
+	}
+
+	session, err := h.sessionGet(w, r)
+	if err != nil {
+		http.Error(w, "session error", http.StatusInternalServerError)
+		return
+	}
+
+	rid := r.PostFormValue("rid")
+
+	if rid == "" {
+		http.Error(w, "ID empty.", http.StatusBadRequest)
+		return
+	}
+
+	id := bson.ObjectIdHex(rid)
+
+	recipes := make([]model.Recipe, 0)
+	if err := h.db.C("recipe").Find(bson.M{"_id": id}).All(&recipes); err != nil {
+		http.Error(w, "Not found.", http.StatusNotFound)
+		return
+	}
+	rec := recipes[0]
+
+	if rec.Pid != session.Pid {
+		http.Error(w, "Not found.", http.StatusNotFound)
+		return
+	}
+
+	info, err := h.db.C("recipe").RemoveAll(bson.M{"_id": id})
+	if err != nil {
+		log.Println("could not remove recipe:", err)
+	}
+	if info.Removed < 1 {
+		log.Println("delete: recipe ID not found")
+	} else {
+		log.Println("delete:", rec.Title)
+	}
 
 	http.Redirect(w, r, "/recipes", http.StatusSeeOther)
 }
@@ -323,4 +396,13 @@ func (h *handler) sessionDelete(w http.ResponseWriter, r *http.Request) error {
 	http.SetCookie(w, &cookie)
 
 	return nil
+}
+
+func (h *handler) noCache(next http.Handler) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate") // HTTP 1.1.
+		w.Header().Set("Pragma", "no-cache")                                   // HTTP 1.0.
+		w.Header().Set("Expires", "0")                                         // Proxies.
+		next.ServeHTTP(w, r)
+	}
 }

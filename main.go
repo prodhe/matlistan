@@ -15,7 +15,7 @@ import (
 func main() {
 	template.SetDirectory("./tmpl/")
 	df := template.Fields{
-		"StaticDir": "/static/",
+		"StaticDir": "/static",
 	}
 	template.Load("index", df, "base.html", "index.html")
 	template.Load("signup", df, "base.html", "signup.html")

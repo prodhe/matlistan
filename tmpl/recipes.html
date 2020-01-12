@@ -3,59 +3,116 @@ Recept
 {{ end }}
 
 {{ define "main" }}
-  <main>
+<main>
     <div class="row">
-    <div class="col-lg-12 text-center">
-      <h2>Recept</h2>
-    </div>
+        <div class="col-lg-12 text-center">
+            <h2>Recept</h2>
+        </div>
     </div>
     <div class="row">
-    <section class="col-md-6">
-      <h3>Skapa nytt</h3>
-      <form method="post" action="/recipes/add">
-  <div class="form-group">
-    <label class="form-control-label" for="title">Titel</label>
-    <input type="text" class="form-control" id="title" name="title" placeholder="Namn på rätt #kategori" required>
-  </div>
-  <div class="form-group">
-    <label class="form-control-label" for="ingredients">Ingredienser</label>
-    <textarea class="form-control" id="ingredients" name="ingredients" placeholder="2 dl vatten
+        <section class="col-md-6">
+            <h3>Din receptbank ({{ len .Recipes }})</h3>
+            <div class="form-group form-inline">
+                <button class="btn btn-light" data-toggle="modal" data-target="#recipeModal">
+                    <span class="fa fa-edit"></span>
+                    Skapa nytt
+                </button>
+                <label for="file_import_list">
+                    <button class="btn btn-light" onClick="$('#file_import_list').click()">
+                        <span class="fa fa-cloud-upload"></span>
+                        <span id="label_file_input">Importera</span>
+                    </button>
+                    <input type="file" id="file_import_list" accept=".txt" class="hide" />
+                </label>
+            </div>
+            <div class="modal fade" id="recipeModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form method="post" action="/recipes/add">
+                            <input type="hidden" name="rid" id="rid" value="" />
+                            <div class="modal-header">
+                                <h4 class="modal-title">Recept</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="title">Titel</label>
+                                    <input type="text" class="form-control" id="title" name="title" placeholder="Namn på rätt #kategori" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="ingredients">Ingredienser</label>
+                                    <textarea class="form-control" id="ingredients" name="ingredients" placeholder="2 dl vatten
 1 msk salt" rows="4" required></textarea>
-  </div>
-  <div class="form-group">
-    <label class="form-control-label" for="description">Beskrivning</label>
-    <textarea class="form-control" id="description" name="description" placeholder="Stormkoka vattnet och smaka av med salt." rows="6"></textarea>
-  </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="description">Beskrivning</label>
+                                    <textarea class="form-control" id="description" name="description" placeholder="Stormkoka vattnet och smaka av med salt. Servera ljummet!" rows="6"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+                                <button type="submit" class="btn btn-primary">Spara</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="recipeDeleteModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form method="post" action="/recipes/delete">
+                            <input type="hidden" name="rid" id="rid" value="" />
+                            <div class="modal-header">
+                                <h4 class="modal-title">Radera recept</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Vill du verkligen radera <i class="rtitle"></i>?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+                                <button type="submit" class="btn btn-danger">Radera</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-      <button type="submit" class="btn btn-primary">Spara</button>
-      </form>
-    </section>
-    <section class="col-md-6">
-      <h3>Din receptbank</h3>
-      {{ if not .Recipes }}
-      <p>Inga just nu. Importera en lista eller skapa ett här bredvid!</p>
-      {{ end }}
-      {{ range .Recipes }}
-      <p>
-      	<b>{{ .Title }}</b>
-      	{{ range .Categories }}
-      	  <i>{{ . }}</i>
-      	{{ end }}
-      	<br>
-      	{{ range .Ingredients }}
-      	  {{ if .Amount }}{{ .Amount }}{{ end }}
-      	  {{ if .Unit }}{{ .Unit }}{{ end }}
-      	  {{ .Name }}<br>
-      	{{ end }}<br>
-      	{{ .Description }}
-      </p>
-      {{ end }}
-    </section>
+            {{ if not .Recipes }}
+            <p>Importera en tidigare lista eller skapa nya!</p>
+            {{ end }}
+            {{ range .Recipes }}
+            <div>
+                <span class="btn btn-sm fa fa-plus" data-toggle="collapse" data-target="#{{ .Id.Hex }}" aria-expanded="false" aria-controls="{{ .Id.Hex }}"></span>
+                <b>{{ .Title }}</b>
+                {{ range .Categories }}
+                <i>{{ . }}</i>
+                {{ end }}
+                <br />
+                <div class="collapse" id="{{ .Id.Hex }}">
+                    <div class="card card-body">
+                        <div class="ml-auto">
+                            <span class="btn btn-sm fa fa-edit" data-toggle="modal" data-target="#recipeModal" data-update="true" data-rid="{{ .Id.Hex }}" data-title="{{ .Title }}" data-categories="{{ range .Categories }};{{ . }}{{ end }}" data-ingredients="{{ range .Ingredients }}{{ if .Amount }}{{ .Amount }} {{ end }}{{ if .Unit }}{{ .Unit }} {{ end }}{{ .Name }};{{ end }}" data-description="{{ .Description }}"></span>
+                            <span class="btn btn-sm fa fa-trash" data-toggle="modal" data-target="#recipeDeleteModal" data-rid="{{ .Id.Hex }}" data-title="{{ .Title }}"></span>
+                        </div>
+                        {{ range .Ingredients }}
+                        {{ if .Amount }}{{ .Amount }}{{ end }}
+                        {{ if .Unit }}{{ .Unit }}{{ end }}
+                        {{ .Name }}<br />
+                        {{ end }}
+                        {{ if .Description }}
+                        <br />
+                        {{ .Description }}
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </section>
+        <section class="col-md-6">
+            <h3>Utforska</h3>
+            <p>Inga nya recept just nu. Men snart kommer ni att kunna se andras recept här!</p>
+        </section>
     </div>
-    <div class="row">
-    <section class="col-lg-12">
-      <h3>Utforska</h3>
-    </section>
-    </div>
-  </main>
+</main>
 {{ end }}

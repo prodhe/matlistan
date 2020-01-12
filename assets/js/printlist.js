@@ -2,8 +2,11 @@
 
 function printList() {
     // get chosen dishes and ingredients
-    var store = {dishes: [], ingredients: []};
-	$('#userlist > li').each(function(i, li) {
+    var store = {
+        dishes: [],
+        ingredients: []
+    };
+    $('#userlist > li').each(function(i, li) {
         if ($(li).text() !== "") {
             var dish = {
                 name: $(li).children('.name').text(),
@@ -12,13 +15,13 @@ function printList() {
             };
             store["dishes"].push(dish);
         }
-	});
-	$('#ingredientslist > li').each(function(i, li) {
+    });
+    $('#ingredientslist > li').each(function(i, li) {
         var text = $(li).text();
         if (text !== "" && !$(li).hasClass("item-ignore")) {
             store["ingredients"].push(text);
         }
-	});
+    });
 
     if (store.ingredients.length > 0) {
         // hide all current sections
@@ -29,14 +32,14 @@ function printList() {
         $('main').append(
             $('<section>')
             .attr("id", "print")
-            .dblclick(function () {
+            .click(function() {
                 this.remove();
                 $('section').show();
                 $('footer').show();
             })
-            .append(function(){
+            .append(function() {
                 var obj = $('<dl>');
-                store.dishes.forEach(function (dish) {
+                store.dishes.forEach(function(dish) {
                     obj.append($('<dt>').append(dish.name));
                     obj.append($('<dd>').append(dish.ingredients));
                 });
@@ -45,11 +48,11 @@ function printList() {
             .append($('<hr>'))
             .append(
                 $('<table>')
-                .append(function(){
+                .append(function() {
                     var obj = $('<tbody>');
                     var str = "";
                     var count = 0;
-                    store.ingredients.forEach(function (ing) {
+                    store.ingredients.forEach(function(ing) {
                         if (count % 2 == 0) {
                             str += "<tr><td class=\"tal\">" + ing + "</td>";
                         } else {

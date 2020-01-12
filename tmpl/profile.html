@@ -3,26 +3,32 @@ Din profil
 {{ end }}
 
 {{ define "main" }}
-  <main class="row">
+<main class="row">
     <div class="col-3"></div>
     <section class="col-lg-6">
-      <h2>Profil</h2>
-      <p>
-      Ditt användarkonto existerar endast för att kunna spara recepten på en plats du enkelt kan komma åt. Matlistan kommer aldrig be dig om din e-postadress för onödiga utskick, eller begära privat information om inte absolut nödvändigt. Vilket inget är på plattformen idag.
-      </p>
-      {{ if false }}
-      <p>
-        Du kan när som helst radera hela din befintliga profil och användarkonto. Recepten kommer dock finnas kvar, men inte hänvisa till vem som ursprungligen skapat dem. Sharing is caring!
-      </p>
-      <hr>
-      <p>
-      <form method="post" action="/deleteaccount">
-        <button type="submit" class="btn btn-danger">Radera konto</button>
-      </form>
-      </p>
-      <hr>
-      {{ end }}
+        <h2>Profil</h2>
+        <p>
+            Ert användarkonto existerar endast för att kunna spara recepten på en plats ni enkelt kan komma åt. Veckans matlista kommer aldrig be er om e-postadress för onödiga utskick eller begära annan typ av privat information.
+        </p>
+        <p>
+            Tjänsten är avsiktligt utformad för - och har som mål - att inte kräva denna typ av information.
+        </p>
+        <p>
+            Profilen är inte på något sätt personligt knuten, utan kan och får således fördelaktigt delas av flera personer.
+        </p>
+        {{ if false }}
+        <p>
+            Du kan när som helst radera hela din befintliga profil och användarkonto. Recepten kommer dock finnas kvar, men inte hänvisa till vem som ursprungligen skapat dem. Sharing is caring!
+        </p>
+        <hr>
+        <p>
+            <form method="post" action="/deleteaccount">
+                <button type="submit" class="btn btn-danger">Radera konto</button>
+            </form>
+        </p>
+        <hr>
+        {{ end }}
     </section>
     <div class="col-3"></div>
-  </main>
+</main>
 {{ end }}

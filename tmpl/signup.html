@@ -3,35 +3,35 @@ Skapa konto
 {{ end }}
 
 {{ define "main" }}
-  <main class="row">
+<main class="row">
     <div class="col-3"></div>
     <section class="col-lg-6">
-      <h2>Skapa konto</h2>
-      {{ if .FormError }}
-      <p class="alert alert-danger">{{ .FormError }}</p>
-      {{ end }}
-      <form method="post" action="/signup">
+        <h2>Skapa konto</h2>
+        {{ if .FormError }}
+        <p class="alert alert-danger">{{ .FormError }}</p>
+        {{ end }}
+        <form method="post" action="/signup">
 
-      <div class="form-group">
-          <label for="username" class="form-control-label">Användarnamn</label>
-          <input type="text" name="username" id="username" class="form-control" value="{{ .Username }}" required>
-      </div>
+            <div class="form-group">
+                <label for="username" class="form-control-label">Användarnamn</label>
+                <input type="text" name="username" id="username" class="form-control" value="{{ .Username }}" required>
+            </div>
 
-      <div class="form-group">
-          <label for="password" class="form-control-label">Lösenord</label>
-          <input type="password" name="password" id="password" class="form-control" required>
-      </div>
+            <div class="form-group">
+                <label for="password" class="form-control-label">Lösenord</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+            </div>
 
-      <button type="submit" class="btn btn-primary">Skicka</button>
+            <button type="submit" class="btn btn-primary">Skicka</button>
 
-      </form>
-      <hr>
-      <div class="text-center mt-3">
-      <p>
-        <a href="/about">Läs mer</a> om Veckans matlista
-      </p>
-      </div>
+        </form>
+        <hr>
+        <div class="text-center mt-3">
+            <p>
+                <a href="/about">Läs mer</a> om Veckans matlista
+            </p>
+        </div>
     </section>
     <div class="col-3"></div>
-  </main>
+</main>
 {{ end }}

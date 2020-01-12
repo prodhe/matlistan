@@ -17,7 +17,7 @@ type Account struct {
 
 type Profile struct {
 	Id   bson.ObjectId `bson:"_id"`
-	Name string
+	Name string        `json:"name"`
 }
 
 type Session struct {
@@ -28,18 +28,18 @@ type Session struct {
 }
 
 type ingredient struct {
-	Amount int
-	Unit   string
-	Name   string
+	Amount int    `json:"amount"`
+	Unit   string `json:"unit"`
+	Name   string `json:"name"`
 }
 
 type Recipe struct {
 	Id          bson.ObjectId `bson:"_id"`
 	Pid         bson.ObjectId // Profile: _id
-	Title       string
-	Categories  []string
-	Ingredients []ingredient
-	Description string
+	Title       string        `json:"title"`
+	Categories  []string      `json:"categories"`
+	Ingredients []ingredient  `json:"ingredients"`
+	Description string        `json:"description"`
 }
 
 // BreakIngredient will separate a string of input into amount, unit and name, if possible.
@@ -68,6 +68,11 @@ func (r *Recipe) BreakIngredients(s string) []ingredient {
 		amount, err := strconv.Atoi(split[0])
 		if err != nil {
 			amount = 0
+		}
+
+		if len(split) != 3 && amount == 0 {
+			ings = append(ings, ingredient{amount, "", line})
+			continue
 		}
 
 		if len(split) != 3 {

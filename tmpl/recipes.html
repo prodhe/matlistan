@@ -11,19 +11,21 @@ Recept
     </div>
     <div class="row">
         <section class="col-md-6">
-            <h3>Personlig receptbank ({{ len .Recipes }})</h3>
+            <h3>Receptbank ({{ len .Recipes }})</h3>
             <div class="form-group form-inline">
-                <button class="btn btn-light" data-toggle="modal" data-target="#recipeModal">
-                    <span class="fa fa-edit"></span>
-                    Skapa nytt
-                </button>
-                <label for="file_import_list">
-                    <button class="btn btn-light" onClick="$('#file_import_list').click()">
-                        <span class="fa fa-cloud-upload"></span>
-                        <span id="label_file_input">Importera</span>
+                <div class="input-group">
+                    <button class="btn btn-light" data-toggle="modal" data-target="#recipeModal">
+                        <span class="fa fa-edit"></span>
+                        Skapa nytt
                     </button>
-                    <input type="file" id="file_import_list" accept=".txt" class="hide" />
-                </label>
+                    <label for="file_import_list" class="m-0">
+                        <button class="btn btn-light" onClick="$('#file_import_list').click()">
+                            <span class="fa fa-file-text-o"></span>
+                            <span id="label_file_input">Importera</span>
+                        </button>
+                        <input type="file" id="file_import_list" accept=".txt" class="hide" />
+                    </label>
+                </div>
             </div>
             <div class="modal fade" id="recipeModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">

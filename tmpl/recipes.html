@@ -83,7 +83,7 @@ Recept
             {{ end }}
             {{ range .Recipes }}
             <div>
-                <span class="btn btn-sm fa fa-plus" data-toggle="collapse" data-target="#{{ .Id.Hex }}" aria-expanded="false" aria-controls="{{ .Id.Hex }}"></span>
+                <span class="btn btn-sm fa fa-plus" data-toggle="collapse" data-target="#{{ .Id.Hex }}" aria-expanded="false" aria-controls="{{ .Id.Hex }}" aria-label="Toggle recipe"></span>
                 <b>{{ .Title }}</b>
                 {{ range .Categories }}
                 <i>{{ . }}</i>

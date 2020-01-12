@@ -275,9 +275,9 @@ $(document).ready(function() {
         if ($(this).hasClass('fa-plus') || $(this).hasClass('fa-minus')) {
             $(this).toggleClass('fa-plus');
             $(this).toggleClass('fa-minus');
+            let t = $(this).data('target');
+            $(t).toggleClass('show');
         }
-        let t = $(this).data('target');
-        $(t).toggleClass('show');
     });
 
     $('#recipeModal').on('show.bs.modal', function(event) {

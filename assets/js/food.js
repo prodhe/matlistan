@@ -282,7 +282,13 @@ $(document).ready(function() {
 
     $('#recipeModal').on('show.bs.modal', function(event) {
         var btn = $(event.relatedTarget);
+        var modal = $(this);
+
         if (btn.data('update') === undefined) {
+            modal.find('#rid').val('');
+            modal.find('#title').val('');
+            modal.find('#ingredients').val('');
+            modal.find('#description').val('');
             return;
         }
 
@@ -292,7 +298,6 @@ $(document).ready(function() {
         var ingredients = btn.data('ingredients').replace(/;/g, '\n');
         var description = btn.data('description');
 
-        var modal = $(this);
         modal.find('#rid').val(rid);
         modal.find('#title').val(title + categories);
         modal.find('#ingredients').val(ingredients);

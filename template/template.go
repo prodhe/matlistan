@@ -12,9 +12,9 @@ import (
 type Fields map[string]interface{}
 
 type tmpl struct {
-	t *template.Template
+	t           *template.Template
 	defaultData Fields
-	files []string
+	files       []string
 }
 
 var templates = struct {
@@ -24,7 +24,7 @@ var templates = struct {
 
 var (
 	templatesDir string
-	devmode bool
+	devmode      bool
 )
 
 func init() {
@@ -49,11 +49,11 @@ func Load(name string, defaultdata Fields, filenames ...string) {
 	if !devmode {
 		tdir = templatesDir
 	}
-	
+
 	var files []string
 
 	for _, file := range filenames {
-		files = append(files, tdir + file)
+		files = append(files, tdir+file)
 	}
 
 	templates.m[name] = tmpl{

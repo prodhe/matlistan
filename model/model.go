@@ -38,6 +38,7 @@ type Recipe struct {
 	Id          bson.ObjectId `bson:"_id"`
 	Pid         bson.ObjectId // Profile: _id
 	AuthorPid   bson.ObjectId // Profile: _id
+	OriginalRid bson.ObjectId // Recipe: _id
 	Title       string        `json:"title"`
 	Categories  []string      `json:"categories"`
 	Ingredients []ingredient  `json:"ingredients"`

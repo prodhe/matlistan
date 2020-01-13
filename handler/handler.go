@@ -121,15 +121,17 @@ func (h *handler) recipesAdd(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	id := bson.NewObjectId()
 	rid := r.PostFormValue("rid")
 	formtitle := r.PostFormValue("title")
 	formingredients := r.PostFormValue("ingredients")
 	description := r.PostFormValue("description")
 
 	recipe := model.Recipe{
-		Id:          bson.NewObjectId(),
+		Id:          id,
 		Pid:         session.Pid,
 		AuthorPid:   session.Pid,
+		OriginalRid: id,
 		Description: description,
 	}
 	title, categories := recipe.BreakTitle(formtitle)
@@ -142,7 +144,9 @@ func (h *handler) recipesAdd(w http.ResponseWriter, r *http.Request) {
 		h.db.C("recipe").Insert(recipe)
 		log.Println("inserted new recipe:", recipe.Title)
 	} else {
+		// Update the recipe and hence take over the author tag
 		recipe.Id = bson.ObjectIdHex(rid)
+		recipe.AuthorPid = session.Pid
 		err := h.db.C("recipe").Update(bson.M{"_id": recipe.Id}, recipe)
 		if err != nil {
 			log.Println("could not update recipe:", err)

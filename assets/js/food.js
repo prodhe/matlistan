@@ -316,4 +316,15 @@ $(document).ready(function() {
         $(this).find('#rid').val(rid);
         $(this).find('.rtitle').text(title);
     })
+
+    $('#recipeCloneModal').on('show.bs.modal', function(event) {
+        var btn = $(event.relatedTarget);
+        if (btn.data('rid') === undefined) {
+            return;
+        }
+        var rid = btn.data('rid');
+        var title = btn.data('title');
+        $(this).find('#rid').val(rid);
+        $(this).find('.rtitle').text(title);
+    })
 });

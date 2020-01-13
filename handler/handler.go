@@ -40,6 +40,7 @@ func New(db *mgo.Database) *handler {
 	h.mux.HandleFunc("/deleteaccount", h.sessionValidate(h.deleteAccount))
 	h.mux.HandleFunc("/profile", h.sessionValidate(h.profile))
 	h.mux.HandleFunc("/recipes/add", h.sessionValidate(h.recipesAdd))
+	h.mux.HandleFunc("/recipes/clone", h.sessionValidate(h.recipesClone))
 	h.mux.HandleFunc("/recipes/delete", h.sessionValidate(h.recipesDelete))
 	h.mux.HandleFunc("/recipes", h.sessionValidate(h.recipes))
 	h.mux.HandleFunc("/recipes.json", h.sessionValidate(h.apiRecipes))
@@ -83,14 +84,23 @@ func (h *handler) recipes(w http.ResponseWriter, r *http.Request) {
 	pid := r.Context().Value("pid")
 
 	recipes := make([]model.Recipe, 0)
-	err := h.db.C("recipe").Find(bson.M{"pid": pid}).All(&recipes)
-	if err != nil {
+	if err := h.db.C("recipe").Find(bson.M{"pid": pid}).All(&recipes); err != nil {
+		recipes = nil
+	}
+
+	// Only fetch other recipes that:
+	// - not equal your profile id
+	// - profile id equals author id, meaning it has either been altered or invented and is considered to be an original recipe
+	or := make([]model.Recipe, 0)
+	query := bson.M{"pid": bson.M{"$ne": pid}, "$expr": bson.M{"$eq": []string{"$pid", "$authorpid"}}}
+	if err := h.db.C("recipe").Find(query).All(&or); err != nil {
 		recipes = nil
 	}
 
 	data := template.Fields{
 		"Authenticated": true,
 		"Recipes":       recipes,
+		"OthersRecipes": or,
 	}
 	template.Render(w, "recipes", data)
 }
@@ -115,22 +125,17 @@ func (h *handler) recipesAdd(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	session, err := h.sessionGet(w, r)
-	if err != nil {
-		http.Error(w, "session error", http.StatusInternalServerError)
-		return
-	}
+	pid := r.Context().Value("pid").(bson.ObjectId)
 
 	id := bson.NewObjectId()
-	rid := r.PostFormValue("rid")
 	formtitle := r.PostFormValue("title")
 	formingredients := r.PostFormValue("ingredients")
 	description := r.PostFormValue("description")
 
 	recipe := model.Recipe{
 		Id:          id,
-		Pid:         session.Pid,
-		AuthorPid:   session.Pid,
+		Pid:         pid,
+		AuthorPid:   pid,
 		OriginalRid: id,
 		Description: description,
 	}
@@ -140,17 +145,53 @@ func (h *handler) recipesAdd(w http.ResponseWriter, r *http.Request) {
 	recipe.Categories = categories
 	recipe.Ingredients = ingredients
 
+	rid := r.PostFormValue("rid")
+
 	if rid == "" {
 		h.db.C("recipe").Insert(recipe)
 		log.Println("inserted new recipe:", recipe.Title)
 	} else {
 		// Update the recipe and hence take over the author tag
 		recipe.Id = bson.ObjectIdHex(rid)
-		recipe.AuthorPid = session.Pid
+		recipe.AuthorPid = pid
 		err := h.db.C("recipe").Update(bson.M{"_id": recipe.Id}, recipe)
 		if err != nil {
 			log.Println("could not update recipe:", err)
 		}
+	}
+
+	http.Redirect(w, r, "/recipes", http.StatusSeeOther)
+}
+
+func (h *handler) recipesClone(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Only POST allowed.", http.StatusMethodNotAllowed)
+		return
+	}
+
+	pid := r.Context().Value("pid").(bson.ObjectId)
+	ridstr := r.PostFormValue("rid")
+
+	if ridstr == "" || !bson.IsObjectIdHex(ridstr) {
+		http.Error(w, "Bad ID.", http.StatusBadRequest)
+		return
+	}
+
+	rid := bson.ObjectIdHex(ridstr)
+
+	rec := model.Recipe{}
+	if err := h.db.C("recipe").FindId(rid).One(&rec); err != nil {
+		http.Error(w, "Not found.", http.StatusNotFound)
+		return
+	}
+
+	rec.Id = bson.NewObjectId()
+	rec.Pid = pid
+
+	if err := h.db.C("recipe").Insert(rec); err != nil {
+		log.Println("could not clone insert recipe:", err)
+	} else {
+		log.Println("clone inserted recipe:", rec.Title)
 	}
 
 	http.Redirect(w, r, "/recipes", http.StatusSeeOther)
@@ -177,12 +218,11 @@ func (h *handler) recipesDelete(w http.ResponseWriter, r *http.Request) {
 
 	id := bson.ObjectIdHex(rid)
 
-	recipes := make([]model.Recipe, 0)
-	if err := h.db.C("recipe").Find(bson.M{"_id": id}).All(&recipes); err != nil {
+	rec := model.Recipe{}
+	if err := h.db.C("recipe").FindId(id).One(&rec); err != nil {
 		http.Error(w, "Not found.", http.StatusNotFound)
 		return
 	}
-	rec := recipes[0]
 
 	if rec.Pid != session.Pid {
 		http.Error(w, "Not found.", http.StatusNotFound)

@@ -286,12 +286,49 @@ func (h *handler) logout(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
-// FIXME
 func (h *handler) deleteAccount(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Only POST allowed.", http.StatusMethodNotAllowed)
 		return
 	}
+
+	u := r.PostFormValue("username")
+	p := r.PostFormValue("password")
+
+	if u == "" || p == "" {
+		http.Error(w, "Username or password must not be empty.", http.StatusBadRequest)
+		return
+	}
+
+	var account model.Account
+
+	err := h.db.C("account").Find(bson.M{"username": u}).One(&account)
+	err2 := bcrypt.CompareHashAndPassword([]byte(account.Password), []byte(p))
+	if err != nil || err2 != nil {
+		http.Error(w, "Wrong credentials.", http.StatusBadRequest)
+		return
+	}
+
+	session, err := h.sessionGet(w, r)
+	if err != nil {
+		log.Printf("error: %v", err)
+		http.Error(w, "Internal server error.", http.StatusInternalServerError)
+		return
+	}
+
+	if err := h.db.C("account").RemoveId(account.Id); err != nil {
+		log.Printf("could not remove account id: %v\n", err)
+		http.Error(w, "Internal server error.", http.StatusInternalServerError)
+		return
+	}
+
+	if err := h.db.C("profile").RemoveId(session.Pid); err != nil {
+		log.Printf("could not remove profile id: %v\n", err)
+		http.Error(w, "Internal server error.", http.StatusInternalServerError)
+		return
+	}
+
+	h.sessionDelete(w, r)
 
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }

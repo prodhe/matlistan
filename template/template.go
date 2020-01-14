@@ -6,10 +6,12 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path"
 	"sync"
 )
 
 type Fields map[string]interface{}
+type FuncMap = template.FuncMap
 
 type tmpl struct {
 	t           *template.Template
@@ -25,11 +27,13 @@ var templates = struct {
 var (
 	templatesDir string
 	devmode      bool
+	funcMap      FuncMap
 )
 
 func init() {
 	templatesDir = ""
 	devmode = false
+	funcMap = FuncMap{}
 }
 
 func Develop(flag bool) {
@@ -41,6 +45,10 @@ func SetDirectory(path string) {
 		log.Fatal("path not found: %s", err)
 	}
 	templatesDir = path
+}
+
+func SetFuncMap(fm FuncMap) {
+	funcMap = fm
 }
 
 func Load(name string, defaultdata Fields, filenames ...string) {
@@ -56,8 +64,10 @@ func Load(name string, defaultdata Fields, filenames ...string) {
 		files = append(files, tdir+file)
 	}
 
+	t := template.New(path.Base(files[0])).Funcs(funcMap)
+	t = template.Must(t.ParseFiles(files...))
 	templates.m[name] = tmpl{
-		template.Must(template.ParseFiles(files...)),
+		t,
 		defaultdata,
 		files,
 	}

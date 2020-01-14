@@ -14,6 +14,11 @@ import (
 
 func main() {
 	template.SetDirectory("./tmpl/")
+	template.SetFuncMap(template.FuncMap{
+		"halfway": func(i, j int) bool {
+			return i > j/2
+		},
+	})
 	df := template.Fields{
 		"StaticDir": "/static",
 	}

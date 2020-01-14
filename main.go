@@ -41,7 +41,7 @@ func main() {
 
 	session, err := mgo.Dial(mongodbURI)
 	if err != nil {
-		log.Printf("could not dial mongo db: %v\n", err)
+		log.Fatalf("Could not dial mongo db: %v\n", err)
 	}
 	defer session.Close()
 	session.SetMode(mgo.Monotonic, true)
@@ -51,6 +51,6 @@ func main() {
 
 	log.Println("Listening on port", port)
 	if err := http.ListenAndServe(":"+port, h); err != nil {
-		log.Println(err)
+		log.Fatalf("Could not start server: %v\n", err)
 	}
 }

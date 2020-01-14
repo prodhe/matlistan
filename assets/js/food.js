@@ -189,9 +189,9 @@ $(document).ready(function() {
                     }
                 }
                 // sort main list
-                window.data.sort(function(a, b) {
-                    return sortAlpha(a["category"], b["category"]);
-                });
+                //window.data.sort(function(a, b) {
+                //    return sortAlpha(a["category"], b["category"]);
+                //});
                 // load to HTML
                 loadList({
                     "dishes": window.data

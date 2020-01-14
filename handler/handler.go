@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"sort"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
@@ -97,6 +98,9 @@ func (h *handler) recipes(w http.ResponseWriter, r *http.Request) {
 		recipes = nil
 	}
 
+	sort.Stable(model.RecipesByTitle(recipes))
+	sort.Stable(model.RecipesByTitle(or))
+
 	data := template.Fields{
 		"Authenticated": true,
 		"Recipes":       recipes,
@@ -113,6 +117,9 @@ func (h *handler) apiRecipes(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		recipes = nil
 	}
+
+	sort.Stable(model.RecipesByTitle(recipes))
+	sort.Stable(model.RecipesByCategory(recipes))
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)

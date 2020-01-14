@@ -16,7 +16,10 @@ func main() {
 	template.SetDirectory("./tmpl/")
 	template.SetFuncMap(template.FuncMap{
 		"halfway": func(i, j int) bool {
-			return i > j/2
+			if j%2 != 0 {
+				j = j + 1
+			}
+			return i == j/2
 		},
 	})
 	df := template.Fields{

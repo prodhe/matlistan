@@ -1,14 +1,11 @@
 # Todo
 
-- Tydliga "boxar" för drag-and-drop
-- Hjälpsida/popup som visar importfilsformatet
-- Snyggare popup vid delning av ingredienslista
-- Store: visa not found om listan inte finns
 - Slumpning tar hänsyn till kategorier
-- Ingredienspopup i "Valda rätter"
 
 ## Historik
 
+- Ingredienspopup i "Valda rätter"
+- Hjälpsida/popup som visar importfilsformatet
 - Snygg cross-browser-lösning för filuppladdning-UI
 - Trimma släpande kommatecken i ingredienslistan
 - Läs in en egen matlista.txt direkt i webbläsaren

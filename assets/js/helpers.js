@@ -11,7 +11,11 @@ function safe2html(str) {
 }
 
 function addObjToList(obj) {
-    $(obj).clone().appendTo($('#userlist'));
+    $(obj)
+        .clone()
+        .data("placement", "left")
+        .tooltip()
+        .appendTo($('#userlist'));
     $('#userlist').trigger("sortupdate");
 }
 

@@ -258,8 +258,12 @@ $(document).ready(function() {
     });
     $('#btn_random_userlist').click(function(e) {
         randomUserlist($('#random_dishes').val());
+        $(this).blur();
     });
-    $('#btn_clear_userlist').click(clearUserlist);
+    $('#btn_clear_userlist').click(function(e) {
+        clearUserlist();
+        $(this).blur();
+    });
     $('#btn_create_store_list').click(function(e) {
         saveIngredients(); //savelist.js
     });

@@ -4,58 +4,58 @@ Profil
 
 {{ define "main" }}
 <main class="row">
-    <div class="col-3"></div>
-    <section class="col-lg-6">
-        <h2>Profil</h2>
-        <p>
-            Ert användarkonto existerar endast för att kunna spara recepten på en plats ni enkelt kan komma åt. Veckans matlista kommer aldrig be er om e-postadress för onödiga utskick eller begära annan typ av privat information.
-        </p>
-        <p>
-            Tjänsten är avsiktligt utformad för - och har som mål - att inte kräva denna typ av information.
-        </p>
-        <p>
-            Profilen är inte på något sätt personligt knuten, utan kan och får således fördelaktigt delas av flera personer.
-        </p>
-        <p>
-            Ni kan när som helst radera hela er befintliga profil och användarkonto. Recepten kommer att finnas kvar, men inte längre kunna hänvisa till vem som ursprungligen skapat dem. Sharing is caring!
-        </p>
-        <hr />
-        <div class="text-center mt-3">
-            <p>
-                <button class="btn btn-danger" data-toggle="modal" data-target="#profileDeleteModal">Radera konto</button>
-            </p>
-        </div>
-        <hr>
-    </section>
-    <div class="col-3"></div>
+	<div class="col-3"></div>
+	<section class="col-lg-6">
+		<h2>Profil</h2>
+		<p>
+			Ert användarkonto existerar endast för att kunna spara recepten på en plats ni enkelt kan komma åt. Veckans matlista kommer aldrig be er om e-postadress för onödiga utskick eller begära annan typ av privat information.
+		</p>
+		<p>
+			Tjänsten är avsiktligt utformad för - och har som mål - att inte kräva denna typ av information.
+		</p>
+		<p>
+			Profilen är inte på något sätt personligt knuten, utan kan och får således fördelaktigt delas av flera personer.
+		</p>
+		<p>
+			Ni kan när som helst radera hela er befintliga profil och användarkonto. Recepten kommer att finnas kvar, men inte längre kunna hänvisa till vem som ursprungligen skapat dem. Sharing is caring!
+		</p>
+		<hr />
+		<div class="text-center mt-3">
+			<p>
+				<button class="btn btn-danger" data-toggle="modal" data-target="#profileDeleteModal">Radera konto</button>
+			</p>
+		</div>
+		<hr>
+	</section>
+	<div class="col-3"></div>
 </main>
 <div class="modal fade" id="profileDeleteModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form method="post" action="/deleteaccount">
-                <div class="modal-header">
-                    <h4 class="modal-title">Radera konto</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <p>Av säkerhetsskäl måste du ange kontots uppgifter, om du önskar radera det. Den här åtgärden kan inte ångras!</p>
-                    <div class="form-group">
-                        <label for="username" class="form-control-label">Användarnamn</label>
-                        <input type="text" name="username" id="username" class="form-control" value="" required>
-                    </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<form method="post" action="/deleteaccount">
+				<div class="modal-header">
+					<h4 class="modal-title">Radera konto</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body">
+					<p>Av säkerhetsskäl måste du ange kontots uppgifter, om du önskar radera det. Den här åtgärden kan inte ångras!</p>
+					<div class="form-group">
+						<label for="username" class="form-control-label">Användarnamn</label>
+						<input type="text" name="username" id="username" class="form-control" value="" required>
+					</div>
 
-                    <div class="form-group">
-                        <label for="password" class="form-control-label">Lösenord</label>
-                        <input type="password" name="password" id="password" class="form-control" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
-                    <button type="submit" class="btn btn-danger">Radera konto</button>
-                </div>
-            </form>
-        </div>
-    </div>
+					<div class="form-group">
+						<label for="password" class="form-control-label">Lösenord</label>
+						<input type="password" name="password" id="password" class="form-control" required>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+					<button type="submit" class="btn btn-danger">Radera konto</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 
 {{ end }}

@@ -1,74 +1,74 @@
 {{ define "main" }}
 <div class="container">
-    <main class="row">
-        <section class="col-sm-4">
-            <h2>Måltider</h2>
-            <div class="form-group form-inline">
-                <div class="input-group">
-                    <label for="file_load_list">
-                        <button class="btn btn-light" onClick="$('#file_load_list').click()">
-                            <span class="fa fa-file-text-o"></span>
-                            <span id="label_file_input">Importera lokal lista</span>
-                        </button>
-                        <input type="file" id="file_load_list" accept=".txt" class="hide" />
-                    </label>
-                </div>
-            </div>
-            <ul id="mainlist" class="list-group">
-            </ul>
-        </section>
-        <section class="col-sm-4">
-            <h2>Valda rätter</h2>
-            <div class="form-group form-inline">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <span class="fa fa-cutlery"></span>
-                        </div>
-                    </div>
-                    <input type="number" min="1" max="99" value="5" size="3" id="random_dishes" class="form-control" />
-                    <div class="input-group-append input-group-btn">
-                        <button id="btn_random_userlist" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Slumpa">
-                            <span class="fa fa-random"></span>
-                            <span class="sr-only">Slumpa</span>
-                        </button>
-                        <button id="btn_clear_userlist" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Nollställ">
-                            <span class="fa fa-eraser"></span>
-                            <span class="sr-only">Nollställ</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="input-group">
+	<main class="row">
+		<section class="col-sm-4">
+			<h2>Måltider</h2>
+			<div class="form-group form-inline">
+				<div class="input-group">
+					<label for="file_load_list">
+						<button class="btn btn-light" onClick="$('#file_load_list').click()">
+							<span class="fa fa-file-text-o"></span>
+							<span id="label_file_input">Importera lokal lista</span>
+						</button>
+						<input type="file" id="file_load_list" accept=".txt" class="hide" />
+					</label>
+				</div>
+			</div>
+			<ul id="mainlist" class="list-group">
+			</ul>
+		</section>
+		<section class="col-sm-4">
+			<h2>Valda rätter</h2>
+			<div class="form-group form-inline">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<span class="fa fa-cutlery"></span>
+						</div>
+					</div>
+					<input type="number" min="1" max="99" value="5" size="3" id="random_dishes" class="form-control" />
+					<div class="input-group-append input-group-btn">
+						<button id="btn_random_userlist" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Slumpa">
+							<span class="fa fa-random"></span>
+							<span class="sr-only">Slumpa</span>
+						</button>
+						<button id="btn_clear_userlist" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Nollställ">
+							<span class="fa fa-eraser"></span>
+							<span class="sr-only">Nollställ</span>
+						</button>
+					</div>
+				</div>
+				<div class="input-group">
 
-                </div>
-            </div>
-            <ul id="userlist" class="list-group">
-            </ul>
-        </section>
-        <section class="col-sm-4">
-            <h2>Ingredienser</h2>
-            <div class="form-group form-inline">
-                <div class="input-group">
-                    <!-- Not available on a static non-PHP web server
+				</div>
+			</div>
+			<ul id="userlist" class="list-group">
+			</ul>
+		</section>
+		<section class="col-sm-4">
+			<h2>Ingredienser</h2>
+			<div class="form-group form-inline">
+				<div class="input-group">
+					<!-- Not available on a static non-PHP web server
           <button id="btn_create_store_list" class="btn btn-default">
             <span class="fa fa-share"></span>
             Dela
           </button>
           //-->
-                    <button id="btn_print_list" class="btn btn-light">
-                        <span class="fa fa-print"></span>
-                        Skriv ut
-                    </button>
-                </div>
-            </div>
-            <ul id="ingredientslist" class="list-unstyled">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </section>
-    </main>
+					<button id="btn_print_list" class="btn btn-light">
+						<span class="fa fa-print"></span>
+						Skriv ut
+					</button>
+				</div>
+			</div>
+			<ul id="ingredientslist" class="list-unstyled">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</section>
+	</main>
 </div>
 {{ end }}

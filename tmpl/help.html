@@ -15,49 +15,16 @@ Hjälp
 				<img class="img-fluid img-thumbnail" src="{{ .StaticDir }}/matlistan_demo.png" />
 			</p>
 			<p>
-				Recepten tillhandahålls av er själva, eller andra på sajten, och kan också importeras från ett enkelt textfilsformat.
-			</p>
-			<p>
-				Användarkontot är en anonym profil, med valfritt användarnamn, endast avsett för att ge er en egen receptbank i databasen. Ni behöver inte ange personliga uppgifter eller e-postadress och ni får gärna dela en inloggning med vänner och familj, om ni tycker det är enklare. Notera dock att användarnamnet kan komma att exponeras mot andra användare i samband med delning av recept.
-			</p>
-			<p>
-				Kontouppgifterna kan inte nollställas, om ni skulle glömma bort lösenordet.
+				Recepten tillhandahålls av er själva och kan importeras från ett enkelt textfilsformat.
 			</p>
 			<p>
 				Källkoden till hela plattformen publiceras öppet på <a href="https://github.com/prodhe/matlistan/">Github</a> och utvecklas av Petter Rodhelind.
 			</p>
 		</div>
 		<div>
-			<h3>Receptbanken</h3>
+			<h3>Generera en matlista</h3>
 			<p>
-				Ni kan antingen skapa egna recept direkt och lagra i databasen med knappen <span class="btn btn-sm btn-light"><span class="fa fa-edit"></span>Skapa nytt</span>, eller importera en textfil med datan i ett anpassat format. Se <em>Importera</em> nedan.
-			</p>
-			<p>
-				Ett recept består av fyra delar: titel, kategorisering, ingredienslista och beskrivning.
-			</p>
-			<p>
-				Titeln är namnet på måltiden och kategoriseringen sker genom avslutande hashtags i titeln, t.ex. <em>Lax i ugn #fisk #vardag</em>. Den första hashtagen är den primära kategorin och den som i dagsläget presenteras och sorteras efter i listbyggaren.
-			</p>
-			<p>
-				Ingredienslistan är en rad per ingrediens, med viss intelligens. Om raden är i formen <em>[siffra] [mängd: tsk/msk/dl/l/g/kg/st/pkt] [artikel]</em> (t. ex. <em>2 dl grädde</em>), kommer mängd, enhet och artikel lagras separat i databasen, vilket medger en bättre sammanställning av ingredienserna i en slutlig inköpslista.
-			</p>
-			<p>
-				Beskrivningen är ett fritt textfält och är inte obligatoriskt för att kunna skapa ett recept.
-			</p>
-			<p>
-				När ett eller flera recept är inlagda i receptbanken, kan dessa redigeras <span class="fa fa-edit"></span> eller tas bort <span class="fa fa-trash"></span>. De syns nu också som förinlästa recept att välja i listbyggaren.
-			</p>
-			<p>
-				Med avseende av listbyggarens fortsatta möjlighet att importera en tillfällig lokal lista, behöver man inte lagra sina recept i banken (och således i molnet på någon extern server), om man inte önskar. Receptbanken är till för att underlätta, men är inget krav för verktygets funktion i övrigt.
-			</p>
-		</div>
-		<div>
-			<h3>Listbyggaren</h3>
-			<p>
-				Tjänsten är en vidareutveckling av något som tidigare endast var verktyget att sammanställa receptlistor. Som sådant fungerar det fortfarande som det gamla verktyget och möjligheten att läsa in en textfil från sin lokala dator kvarstår. Receptbanken behöver inte användas, om man inte gillar att samla, dela och komma åt sina recept på ett enkelt sätt, oavsett från vilken klient man gör det.
-			</p>
-			<p>
-				Listan med tillgängliga recept befolkas antingen via receptbanken eller genom att tillfälligt ladda upp en textfil enligt särskilt format. Eventuellt receptbankslista ersätts i dagsläget då av den tillfälliga textfilen, så listorna kan inte kombineras i realtid. Däremot kan samma textfil läsas in direkt i receptbanken, om man önskar slå samman flera sedan tidigare textfilsmatlistor.
+				Listan med tillgängliga recept uppdateras genom att tillfälligt ladda upp en textfil enligt särskilt format.
 			</p>
 			<p>
 				Enkelklicka, eller dra, enskild måltid till kolumnen för valda rätter. Ingredienslistan uppdateras automagiskt. Man kan även låta verktyget slumpmässigt välja från angivet antal måltider, för att snabbt skaffa sig en matlista utan djupare eftertänksamhet.
@@ -75,10 +42,10 @@ Hjälp
 kategori | titel: ingrediens, ingrediens, ingrediens
 kategori | titel: ingrediens, ingrediens, ingrediens</pre>
 			<p>
-				Ovan syns det format som textfilen förväntas ha, när man importerar recept. Antingen i receptbanken eller som temporär lista direkt i listbyggaren. Ett <a href="{{ .StaticDir }}/matlista.txt">riktigt exempel</a> kanske kan underlätta förståelsen för systemet.
+				Ovan syns det format som textfilen förväntas ha, när man importerar recept. Ett <a href="{{ .StaticDir }}/matlista.txt">riktigt exempel</a> kanske kan underlätta förståelsen för systemet.
 			</p>
 			<p>
-				Märk väl att någon beskrivning inte finns med i formatet. Ursprungligen gjordes verktyget utan beskrivning av recepten och det är endast i nya receptbanken som dessa går att skapa och se idag.
+				Märk väl att någon beskrivning inte finns med i formatet. Hur man tillagar recepten förväntas man veta, eller ha receptbok vid sidan av.
 			</p>
 		</div>
 		<div>
